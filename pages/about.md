@@ -15,8 +15,8 @@ $$
 <div>$$
 \begin{aligned}
 \dot{x} & = \sigma(y-x) \\
-\dot{y} &amp; = \rho x - y - xz \\
-\dot{z} &amp; = -\beta z + xy
+\dot{y} & = \rho x - y - xz \\
+\dot{z} & = -\beta z + xy
 \end{aligned}
 $$</div>
 
