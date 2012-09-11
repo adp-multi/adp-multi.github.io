@@ -1,6 +1,7 @@
 /* Override some defaults */
 html, body {
   background-color: #eee;
+  font-size:16px;
 }
 .navbar {
   margin-bottom: 0;
@@ -81,10 +82,4 @@ html, body {
   background:#57A957;
   border:1px solid #4C964D;
   color:#FFF;
-}
-
-/* standard font size */
-
-p {
-	font-size:16px;
 }
