@@ -25,7 +25,7 @@
 			var PREFILTER = TEX.prefilterMath;
 			TEX.Augment({
 				prefilterMath: function (math,displaymode,script) {
-					if (displaymode) {math = "\\large{"+math+"}"}
+					if (displaymode) {math = "\\Large{"+math+"}"}
 					return PREFILTER.call(TEX,math,displaymode,script);
 				}
 			});

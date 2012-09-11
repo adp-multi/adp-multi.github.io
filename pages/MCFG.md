@@ -23,7 +23,7 @@ N are non-terminals, T terminals, and S the start symbol.
 Composition functions have the form `$f[(x_1, ..., x_m), (y_1, ..., y_n), ...] = \gamma$`,
 where $\gamma$ is either a string tuple or an application of a composition function.
 
-Rewrite rules have the form $X \rightarrow$ f(Y, Z, ...)$,
+Rewrite rules have the form $X \rightarrow f(Y, Z, ...)$,
 where Y, Z, ... are string tuples or non-terminal symbols.
 
 ### Example
