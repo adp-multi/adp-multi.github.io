@@ -1,7 +1,12 @@
 /* Override some defaults */
 html, body {
   background-color: #eee;
-  font-size:16px;
+  font-size: 16px;
+  line-height: 22px;
+}
+p {
+  font-size: 16px;
+  line-height: 22px;
 }
 .navbar {
   margin-bottom: 0;
