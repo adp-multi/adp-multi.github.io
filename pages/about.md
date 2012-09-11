@@ -5,6 +5,10 @@ description:
 
 Hello, how are you?
 
+<div>$$
+F(L) = \frac{\sum_{i\in L.idx} B_i \cdot H_i \cdot T_i}{B_C \cdot H_C \cdot T_C}
+$$</div>
+
 MathJax Test:
 
 $$
