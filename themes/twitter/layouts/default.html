@@ -12,14 +12,24 @@
     {{{ assets }}} 
 	
 	<script type="text/x-mathjax-config">
-	  MathJax.Hub.Config({
-		tex2jax: {
-			inlineMath: [['$','$']]
-		},
-		"HTML-CSS": {
-			scale: 150
-		}
-	  });
+		MathJax.Hub.Config({
+			tex2jax: {
+				inlineMath: [['$','$']]
+			},
+			"HTML-CSS": {
+				scale: 100
+			}
+		});
+		MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
+			var TEX = MathJax.InputJax.TeX;
+			var PREFILTER = TEX.prefilterMath;
+			TEX.Augment({
+				prefilterMath: function (math,displaymode,script) {
+					if (displaymode) {math = "\\large{"+math+"}"}
+					return PREFILTER.call(TEX,math,displaymode,script);
+				}
+			});
+		});
 	</script>
 	<script type="text/javascript"
 	  src="{{urls.theme_javascripts}}/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
