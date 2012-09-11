@@ -9,7 +9,7 @@ description: adp-multi is an adaptation of the Algebraic Dynamic Programming
 adp-multi is an adaptation of the [Algebraic Dynamic Programming](http://bibiserv.techfak.uni-bielefeld.de/adp/)
 method for [multiple context-free grammars](mcfg).
 
-It is based on the original [Haskell implementation](https://bitbucket.org/gsauthof/adpcombinators)
+It is a library based on the original [Haskell implementation](https://bitbucket.org/gsauthof/adpcombinators)
 and can be considered an unoptimized prototype.
 
 ## Sources, please!
