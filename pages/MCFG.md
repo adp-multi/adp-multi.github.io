@@ -20,10 +20,10 @@ This class is a restricted instance of *generalized context-free grammars*.
 A GCFG G = (N, T, F, P, S) consist of a set of composition functions F and a set of rewrite rules P.
 N are non-terminals, T terminals, and S the start symbol.
 
-Composition functions have the form f[(x1, ..., x<sub>m</sub>), (y1, ..., y<sub>n</sub>), ...] = ?,
-where ? is either a string tuple or an application of a composition function.
+Composition functions have the form `$f[(x_1, ..., x_m), (y_1, ..., y_n), ...] = \gamma$`,
+where $\gamma$ is either a string tuple or an application of a composition function.
 
-Rewrite rules have the form X ? f(Y, Z, ...),
+Rewrite rules have the form $X \rightarrow$ f(Y, Z, ...)$,
 where Y, Z, ... are string tuples or non-terminal symbols.
 
 ### Example
@@ -38,13 +38,13 @@ A \rightarrow g_a[A] \mid e_a\\
 B \rightarrow g_b[B] \mid e_b  
 $$</div>
 
-<div>$$
+````mathjax
 f[(x),(y_1,y_2)] = (y_1 c^{|x|^2} y_2)\\
 g_a[(x)] = (xa)\\
 g_b[(x_1,x_2)] = (bx_1, bx_2)\\
 e_a = (\epsilon)\\
 e_b = (\epsilon, \epsilon)
-$$</div>
+````
 
 $$
 L(G) = L_G(S) = \{(b^n c^{m^2} b^n) \mid m, n \in \mathbb{N}\}
