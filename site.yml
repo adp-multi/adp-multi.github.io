@@ -1,0 +1,15 @@
+title : adp-multi
+author :
+  name : Maik Riechert
+  github : neothemachine
+
+navigation :
+#  - archive.html
+#  - tags.html
+#  - categories.html
+#  - pages.html
+  - how_to_use.md
+  - MCFG.md
+  - architecture.md
+#  - about.md
+  
