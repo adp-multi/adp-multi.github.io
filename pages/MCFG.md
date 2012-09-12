@@ -17,20 +17,20 @@ This class is a restricted instance of *generalized context-free grammars*.
 
 ## Generalized context-free grammars (GCFG)
 
-A GCFG G = (N, T, F, P, S) consist of a set of composition functions F and a set of rewrite rules P.
-N are non-terminals, T terminals, and S the start symbol.
+A GCFG $G = (N, T, F, P, S)$ consist of a set of composition functions $F$ and a set of rewrite rules $P$.
+$N$ are non-terminals, $T$ terminals, and $S$ the start symbol.
 
-Composition functions have the form `$f[(x_1, ..., x_m), (y_1, ..., y_n), ...] = \gamma$`,
+Composition functions have the form <span>$f[(x_1, ..., x_m), (y_1, ..., y_n), ...] = \gamma$</span>,
 where $\gamma$ is either a string tuple or an application of a composition function.
 
 Rewrite rules have the form $X \rightarrow f(Y, Z, ...)$,
-where Y, Z, ... are string tuples or non-terminal symbols.
+where $Y, Z, ...$ are string tuples or non-terminal symbols.
 
 ### Example
 
-$$
+<div>$$
 G = (\{S, A, B\}, (\{a,b,c\}), {f,g_a,g_b,e_a,e_b}, P, S)
-$$
+$$</div>
 
 <div>$$
 S \rightarrow f[A,B]\\
@@ -38,17 +38,17 @@ A \rightarrow g_a[A] \mid e_a\\
 B \rightarrow g_b[B] \mid e_b  
 $$</div>
 
-````mathjax
+<div>$$
 f[(x),(y_1,y_2)] = (y_1 c^{|x|^2} y_2)\\
 g_a[(x)] = (xa)\\
 g_b[(x_1,x_2)] = (bx_1, bx_2)\\
 e_a = (\epsilon)\\
 e_b = (\epsilon, \epsilon)
-````
+$$</div>
 
-$$
+<div>$$
 L(G) = L_G(S) = \{(b^n c^{m^2} b^n) \mid m, n \in \mathbb{N}\}
-$$
+$$</div>
 	
 When the composition functions are unrestricted, then GCFG are equivalent to type-0 grammars.
 
@@ -57,18 +57,18 @@ as concatenations of constant strings and the components of the function argumen
 
 ## Multiple context-free grammars (MCFG)
 
-A MCFG is a GCFG G = (N, T, F, P, S) with the following properties:
+A MCFG is a GCFG $G = (N, T, F, P, S)$ with the following properties:
 
 * Functions are only defined as concatenations of constant strings and the components of the function arguments.
 * Either all components of a single function argument are used exactly once or not at all.
-* For all A ? N, every tuple derivable from A must have the same size.
-* All tuples derivable from the start symbol S are 1-tuples.
+* For all $A \in N$, every tuple derivable from A must have the same size.
+* All tuples derivable from the start symbol $S$ are 1-tuples.
 
 ### Example from ([Kato, 2005][Kato2005])
 
-$$
+<div>$$
 G = (\{S,A\}, \{a,b\}, \{J,f_\alpha\}, P, S)
-$$
+$$</div>
 
 <div>$$
 S \rightarrow J[A]\\
@@ -80,9 +80,9 @@ J[(x_1,x_2)] = (x_1 x_2)\\
 f_\alpha [(x_1,x_2)] = (\alpha x_1, \alpha x_2)
 $$</div>
 
-$$
+<div>$$
 L(G) = L_G(S) = \{ ww \mid w \in \{a,b\}^* \}
-$$
+$$</div>
 
 ### Alternative representation ([Wild, 2010][Wild2010]), ([Nebel and Weinberg, 2012][Nebel2012])
 
@@ -94,55 +94,55 @@ of regular CFG by adding vectors to rules. As we will later see, this is equival
 and can make the whole representation more compact (if functions couldn't have been reused anyway)
 and understandable.
 
-> A MCFG is a tuple G = (N, d, T, P, S) comprised of  
+> A MCFG is a tuple $G = (N, d, T, P, S)$ comprised of  
 >  
-> N, a finite set of non-terminals,  
-> d, a function from N to N, assigning a dimension d(A) to each A ? N,  
-> T, a finite set of terminals,  
-> P, a finite set of rules and  
-> the start symbol S ? N with d(S) = 1.
+> $N$, a finite set of non-terminals,  
+> $d$, a function from $N$ to $N$, assigning a dimension $d(A)$ to each $A \in N$,  
+> $T$, a finite set of terminals,  
+> $P$, a finite set of rules and  
+> the start symbol $S \in N$ with $d(S) = 1$.
 
 This representation of MCFG will further be called *inlined* MCFG, or short iMCFG.
 
 ### Example from ([Kato, 2005][Kato2005]) translated to alternative representation
 
-$$
+<div>$$
 G = (\{S,A\}, d, \{a,b\}, P, S)
-$$
+$$</div>
 
 <div>$$
 d(S) = 1\\
 d(A) = 2
 $$</div>
 
-$$
+<div>$$
 S \rightarrow A_1 A_2
-$$
+$$</div>
 
-$$
+<div>$$
 [A_1, A_2] \rightarrow [a A_1, a A_2] \mid [b A_1, b A_2] \mid [\epsilon, \epsilon]
-$$
+$$</div>
 
 ### Another example
 
-$$
+<div>$$
 G = (\{S,K\}, d, \{a,b\}, P, S)
-$$
+$$</div>
 
 <div>$$
 d(S) = 1\\
 d(K) = 2
 $$</div>
 
-$$
+<div>$$
 S \rightarrow \epsilon \mid K_1 S K_2 \mid K^{(1)}_1 S K^{(2)}_1 S K^{(1)}_2 S K^{(2)}_2 S
-$$
+$$</div>
 
-$$
+<div>$$
 [K_1, K_2] \rightarrow [K_1 a, b K_2] \mid [a, b]
-$$
+$$</div>
 
-To distinguish between multiple uses of a nonterminal N with dim(N) > 1, an upper index in parentheses
+To distinguish between multiple uses of a nonterminal $N$ with $dim(N) > 1$, an upper index in parentheses
 is added.
 
 Both representations, MCFG and iMCFG, can be automatically transformed into each other.
@@ -158,9 +158,9 @@ $$</div>
 
 gets
 
-$$
+<div>$$
 [A_1, A_2] \rightarrow [a A_1, a A_2]
-$$
+$$</div>
 
 ### Transformation steps from iMCFG to MCFG
 
@@ -168,15 +168,15 @@ Reverse the inlining by:
 
 #### 1. For all terminating rules, rewrite the left side to a single symbol:
 
-$$
+<div>$$
 [K_1, K_2] \rightarrow [a,a]
-$$
+$$</div>
 
 becomes
 
-$$
+<div>$$
 K \rightarrow (a,a)
-$$
+$$</div>
 
 #### 2. For all non-terminating rules:
 
@@ -186,13 +186,13 @@ $$
 
 E.g.
 
-$$
+<div>$$
 S \rightarrow \epsilon \mid K_1 S K_2 \mid K^{(1)}_1 S K^{(2)}_1 S K^{(1)}_2 S K^{(2)}_2 S
-$$
+$$</div>
 
-$$
+<div>$$
 [K_1, K_2] \rightarrow [K_1 a, b K_2] \mid [a, b]
-$$
+$$</div>
 
 becomes
 
