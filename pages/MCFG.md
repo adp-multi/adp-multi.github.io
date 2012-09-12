@@ -17,10 +17,10 @@ This class is a restricted instance of *generalized context-free grammars*.
 
 ## Generalized context-free grammars (GCFG)
 
-A GCFG $G = (N, T, F, P, S)$ consist of a set of composition functions $F$ and a set of rewrite rules $P$.
+A GCFG $G = (N, T, F, P, S)$ consists of a set of composition functions $F$ and a set of rewrite rules $P$.
 $N$ are non-terminals, $T$ terminals, and $S$ the start symbol.
 
-Composition functions have the form <span>$f[(x_1, ..., x_m), (y_1, ..., y_n), ...] = \gamma$</span>,
+Composition functions have the form $f[(x_1, ..., x_m), (y_1, ..., y_n), ...] = \gamma$,
 where $\gamma$ is either a string tuple or an application of a composition function.
 
 Rewrite rules have the form $X \rightarrow f(Y, Z, ...)$,
@@ -32,19 +32,19 @@ where $Y, Z, ...$ are string tuples or non-terminal symbols.
 G = (\{S, A, B\}, (\{a,b,c\}), {f,g_a,g_b,e_a,e_b}, P, S)
 $$</div>
 
-<div>$$
-S \rightarrow f[A,B]\\
-A \rightarrow g_a[A] \mid e_a\\
-B \rightarrow g_b[B] \mid e_b  
-$$</div>
+<div>$$\begin{aligned}
+S & \rightarrow f[A,B]\\
+A & \rightarrow g_a[A] \mid e_a\\
+B & \rightarrow g_b[B] \mid e_b  
+\end{aligned}$$</div>
 
-<div>$$
-f[(x),(y_1,y_2)] = (y_1 c^{|x|^2} y_2)\\
-g_a[(x)] = (xa)\\
-g_b[(x_1,x_2)] = (bx_1, bx_2)\\
-e_a = (\epsilon)\\
-e_b = (\epsilon, \epsilon)
-$$</div>
+<div>$$\begin{aligned}
+f[(x),(y_1,y_2)] & = (y_1 c^{|x|^2} y_2)\\
+g_a[(x)] & = (xa)\\
+g_b[(x_1,x_2)] & = (bx_1, bx_2)\\
+e_a & = (\epsilon)\\
+e_b & = (\epsilon, \epsilon)
+\end{aligned}$$</div>
 
 <div>$$
 L(G) = L_G(S) = \{(b^n c^{m^2} b^n) \mid m, n \in \mathbb{N}\}
@@ -61,7 +61,7 @@ A MCFG is a GCFG $G = (N, T, F, P, S)$ with the following properties:
 
 * Functions are only defined as concatenations of constant strings and the components of the function arguments.
 * Either all components of a single function argument are used exactly once or not at all.
-* For all $A \in N$, every tuple derivable from A must have the same size.
+* For all $A \in N$, every tuple derivable from $A$ must have the same size.
 * All tuples derivable from the start symbol $S$ are 1-tuples.
 
 ### Example from ([Kato, 2005][Kato2005])
@@ -70,15 +70,15 @@ A MCFG is a GCFG $G = (N, T, F, P, S)$ with the following properties:
 G = (\{S,A\}, \{a,b\}, \{J,f_\alpha\}, P, S)
 $$</div>
 
-<div>$$
-S \rightarrow J[A]\\
-A \rightarrow f_a[A] \mid f_b[A] \mid (\epsilon, \epsilon)
-$$</div>
+<div>$$\begin{aligned}
+S & \rightarrow J[A]\\
+A & \rightarrow f_a[A] \mid f_b[A] \mid (\epsilon, \epsilon)
+\end{aligned}$$</div>
 
-<div>$$
-J[(x_1,x_2)] = (x_1 x_2)\\
-f_\alpha [(x_1,x_2)] = (\alpha x_1, \alpha x_2)
-$$</div>
+<div>$$\begin{aligned}
+J[(x_1,x_2)] & = (x_1 x_2)\\
+f_\alpha [(x_1,x_2)] & = (\alpha x_1, \alpha x_2)
+\end{aligned}$$</div>
 
 <div>$$
 L(G) = L_G(S) = \{ ww \mid w \in \{a,b\}^* \}
@@ -134,13 +134,10 @@ d(S) = 1\\
 d(K) = 2
 $$</div>
 
-<div>$$
-S \rightarrow \epsilon \mid K_1 S K_2 \mid K^{(1)}_1 S K^{(2)}_1 S K^{(1)}_2 S K^{(2)}_2 S
-$$</div>
-
-<div>$$
-[K_1, K_2] \rightarrow [K_1 a, b K_2] \mid [a, b]
-$$</div>
+<div>$$\begin{aligned}
+S & \rightarrow \epsilon \mid K_1 S K_2 \mid K^{(1)}_1 S K^{(2)}_1 S K^{(1)}_2 S K^{(2)}_2 S\\
+[K_1, K_2] & \rightarrow [K_1 a, b K_2] \mid [a, b]
+\end{aligned}$$</div>
 
 To distinguish between multiple uses of a nonterminal $N$ with $dim(N) > 1$, an upper index in parentheses
 is added.
@@ -186,20 +183,20 @@ $$</div>
 
 E.g.
 
-<div>$$
-S \rightarrow \epsilon \mid K_1 S K_2 \mid K^{(1)}_1 S K^{(2)}_1 S K^{(1)}_2 S K^{(2)}_2 S
-$$</div>
-
-<div>$$
-[K_1, K_2] \rightarrow [K_1 a, b K_2] \mid [a, b]
-$$</div>
+<div>$$\begin{aligned}
+S & \rightarrow \epsilon \mid K_1 S K_2 \mid K^{(1)}_1 S K^{(2)}_1 S K^{(1)}_2 S K^{(2)}_2 S\\
+[K_1, K_2] & \rightarrow [K_1 a, b K_2] \mid [a, b]
+\end{aligned}$$</div>
 
 becomes
 
 <div>$$
 S \rightarrow (\epsilon) \mid f_1[S,K] \mid f_2[K,K,S,S,S,S]\\
 f_1[(x),(y_1,y_2)] = (y_1 x y_2)\\
-f_2[(k_1,k_2),(k_3,k_4),(s_1),(s_2),(s_3),(s_4)] = (k_1 s_1 k_3 s_2 k_2 s_3 k_4 s_4)\\
+f_2[(k_1,k_2),(k_3,k_4),(s_1),(s_2),(s_3),(s_4)] = (k_1 s_1 k_3 s_2 k_2 s_3 k_4 s_4)
+$$</div>
+
+<div>$$
 K \rightarrow g[K] \mid (a, b)\\
 g[(x_1,x_2)] = (x_1 a, b x_2)
 $$</div>
