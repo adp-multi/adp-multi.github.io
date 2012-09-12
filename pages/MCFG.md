@@ -134,10 +134,16 @@ d(S) = 1\\
 d(K) = 2
 $$</div>
 
-<div>$$\begin{aligned}
-S & \rightarrow \epsilon \mid K_1 S K_2 \mid K^{(1)}_1 S K^{(2)}_1 S K^{(1)}_2 S K^{(2)}_2 S\\
-[K_1, K_2] & \rightarrow [K_1 a, b K_2] \mid [a, b]
-\end{aligned}$$</div>
+<!-- the following two math expressions should be aligned, but there's a bug in MathJax atm:
+     https://github.com/mathjax/MathJax/issues/230
+-->
+<div>$$
+S \rightarrow \epsilon \mid K_1 S K_2 \mid K^{(1)}_1 S K^{(2)}_1 S K^{(1)}_2 S K^{(2)}_2 S
+$$</div>
+
+<div>$$
+[K_1, K_2] \rightarrow [K_1 a, b K_2] \mid [a, b]
+$$</div>
 
 To distinguish between multiple uses of a nonterminal $N$ with $dim(N) > 1$, an upper index in parentheses
 is added.
@@ -183,10 +189,16 @@ $$</div>
 
 E.g.
 
-<div>$$\begin{aligned}
-S & \rightarrow \epsilon \mid K_1 S K_2 \mid K^{(1)}_1 S K^{(2)}_1 S K^{(1)}_2 S K^{(2)}_2 S\\
-[K_1, K_2] & \rightarrow [K_1 a, b K_2] \mid [a, b]
-\end{aligned}$$</div>
+<!-- the following two math expressions should be aligned, but there's a bug in MathJax atm:
+     https://github.com/mathjax/MathJax/issues/230
+-->
+<div>$$
+S \rightarrow \epsilon \mid K_1 S K_2 \mid K^{(1)}_1 S K^{(2)}_1 S K^{(1)}_2 S K^{(2)}_2 S
+$$</div>
+
+<div>$$
+[K_1, K_2] \rightarrow [K_1 a, b K_2] \mid [a, b]
+$$</div>
 
 becomes
 
