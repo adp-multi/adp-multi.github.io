@@ -20,8 +20,13 @@ This class is a restricted instance of *generalized context-free grammars*.
 A GCFG $G = (N, T, F, P, S)$ consists of a set of composition functions $F$ and a set of rewrite rules $P$.
 $N$ are non-terminals, $T$ terminals, and $S$ the start symbol.
 
-Composition functions have the form $f[(x_1, ..., x_m), (y_1, ..., y_n), ...] = \gamma$,
-where $\gamma$ is either a string tuple or an application of a composition function.
+Composition functions have the form 
+
+<div>$$
+f[(x_1, ..., x_m), (y_1, ..., y_n), ...] = \gamma
+$$</div>
+
+, where $\gamma$ is either a string tuple or an application of a composition function.
 
 Rewrite rules have the form $X \rightarrow f(Y, Z, ...)$,
 where $Y, Z, ...$ are string tuples or non-terminal symbols.

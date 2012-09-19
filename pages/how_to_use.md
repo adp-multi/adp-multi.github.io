@@ -13,10 +13,10 @@ because this is where the ADP method is mainly used at the moment.
 If you are already familiar with the
 [Haskell implementation](https://bitbucket.org/gsauthof/adpcombinators) of regular ADP, then
 have a look at
-[`tests/ADP/Tests/NestedExample.hs`](https://github.com/neothemachine/adp-multi/blob/dim1-generic/tests/ADP/Tests/NestedExample.hs)
+[tests/ADP/Tests/NestedExample.hs](https://github.com/neothemachine/adp-multi/blob/master/tests/ADP/Tests/NestedExample.hs)
 where adp-multi is used with only one-dimensional parsers/nonterminals.
 This is equal to the working of regular ADP and should be familiar
-to you. The additional syntax overhead (>>> etc.) will be useful for higher dimensions.
+to you. The additional syntax overhead (`>>>` etc.) will be useful for higher dimensions.
 
 ## Combinators and yield size
 
@@ -34,7 +34,7 @@ For everything higher than one dimension you have to use a rewriting function fo
 In the previous one-dimensional example this was expressed by `>>>| id` which means that no rewriting
 should take place.
 
-As explained in the [MCFG page](mcfg) there are two representations of multiple context-free grammars:
+As explained in the [MCFG page](/mcfg) there are two representations of multiple context-free grammars:
 the original functional-style representation by 
 [Seki et al. (1991)](http://www.sciencedirect.com/science/article/pii/030439759190374B) 
 and the newer inlined-style one by [Wild (2010)](https://kluedo.ub.uni-kl.de/frontdoor/index/index/docId/2285).
@@ -42,7 +42,7 @@ As the functional-style representation fits better for implementing it via parse
 was chosen for adp-multi.
 
 Have a look at
-[`tests/ADP/Tests/RGExample.hs`](https://github.com/neothemachine/adp-multi/blob/dim1-generic/tests/ADP/Tests/RGExample.hs)
+[tests/ADP/Tests/RGExample.hs](https://github.com/neothemachine/adp-multi/blob/master/tests/ADP/Tests/RGExample.hs)
 and scroll to the bottom where the grammar is. Depending on the dimension of the nonterminal,
 you have to use either `>>>|` or `>>>||` to combine a rule with its rewriting function.
 At the moment there is no type-safety for rewriting functions, so be careful with the list
