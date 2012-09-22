@@ -26,8 +26,8 @@ The algebra aspect stays exactly the same.
 	K = knot1 << P K >> \ (p1,p2) (k1,k2) -> (k1 p1, p2 k2)
 	  | knot2 << P
 
-	Of course rewriting functions should also be assignable to separate identifiers
-	to allow reuse:
+Of course rewriting functions should also be assignable to separate identifiers
+to allow reuse:
 
 	rewriteKnot1 (p1,p2) (k1,k2) = (k1 p1, p2 k2)
 	K = knot1 << P K >> rewriteKnot1

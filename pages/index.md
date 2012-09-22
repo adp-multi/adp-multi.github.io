@@ -25,7 +25,7 @@ and/or read a [tutorial-style paper](http://dx.doi.org/10.1016/j.scico.2003.12.0
 If you don't know multiple context-free grammars yet, then you should first read the 
 [explanation](mcfg) for it.
 
-After that, you can either look at some [examples](how_to_use) or check out the source code and start
+After that, you can either look at some [examples](/quick_start) or check out the source code and start
 hacking.
 
 ## Questions? Comments? Bugs?

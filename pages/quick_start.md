@@ -1,5 +1,5 @@
 ---
-title : How To Use
+title : Quick start
 description:
 ---
 

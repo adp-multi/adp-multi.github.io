@@ -8,8 +8,9 @@ navigation :
 #  - tags.html
 #  - categories.html
 #  - pages.html
-  - how_to_use.md
+  - quick_start.md
   - MCFG.md
+  - syntax.md
   - architecture.md
 #  - about.md
   
