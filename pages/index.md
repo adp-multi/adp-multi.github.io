@@ -16,7 +16,7 @@ and can be considered an unoptimized prototype.
 
 Here you go: [https://github.com/neothemachine/adp-multi](https://github.com/neothemachine/adp-multi)
 
-## How can I learn more about it?
+## Where do I start?
 
 If you are new to ADP, then it's best to go through the 
 [online course](http://bibiserv.techfak.uni-bielefeld.de/cgi-bin/dpcourse) of the Bielefeld University
@@ -25,8 +25,8 @@ and/or read a [tutorial-style paper](http://dx.doi.org/10.1016/j.scico.2003.12.0
 If you don't know multiple context-free grammars yet, then you should first read the 
 [explanation](mcfg) for it.
 
-After that, you can either look at some [examples](/quick_start) or check out the source code and start
-hacking.
+After that, you should go to the [quick start guide](/quick_start) where you learn
+what's different compared to original Haskell-ADP and how to write your own grammars.
 
 ## Questions? Comments? Bugs?
 

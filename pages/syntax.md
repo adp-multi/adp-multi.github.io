@@ -125,7 +125,7 @@ in future versions, but at the moment this forces us to use a new rewriting
 combinator for every dimension: `>>>|` for 1-dim nonterminals, and `>>>||` for
 2-dim nonterminals. Again, choosing the wrong one will only lead to runtime errors.
 
-### `>>`: optional vs required
+### `>>` optional vs required
 
 In original Haskell-ADP, the combinators for connecting two nonterminals were themselves
 responsible for creating the right subword indices. In adp-multi, this isn't possible
