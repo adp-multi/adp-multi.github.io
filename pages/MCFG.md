@@ -3,6 +3,9 @@ title : Multiple Context-Free Grammars
 description:
 ---
 
+If you already know what multiple context-free grammars are, then you can head over to the 
+[syntax page](/syntax).
+
 ## Mildly context-sensitive languages
 
 > Mild context-sensitivity is defined in terms of sets of languages. A set of languages is mildly context-sensitive if and only if  
@@ -189,8 +192,8 @@ $$</div>
 #### 2. For all non-terminating rules:
 
 1. Rewrite the left side to a single symbol
-2. Count the nonterminal symbols on the right side as n (a symbol N with dim(N) > 1 counts as one)
-3. Create a new n-ary function with the counted symbols in b) and use them in the rule
+2. Let $n$ be the number of nonterminal symbols on the right side (a symbol $N$ with $dim(N) > 1$ counts as one)
+3. Create a new $n$-ary function with the counted symbols in 2. and use them in the rule
 
 E.g.
 
@@ -221,9 +224,13 @@ $$</div>
 #### 3. Eliminate identical functions
 
 It is obvious that in some cases the original MCFG form (if there was one) cannot be reconstructed if
-it is not in a canonical form, e.g. it has identical functions or functions which don't use an argument.
+it is not in a canonical form, e.g. if it has identical functions or functions which don't use an argument.
 In all other cases, the original form can be reconstructed by eliminating identical functions of the
 generated MCFG.
+
+## How do MCFGs look like in adp-multi?
+
+Have a look at the [syntax page](/syntax).
 
 
 [Wild2010]: https://kluedo.ub.uni-kl.de/frontdoor/index/index/docId/2285
