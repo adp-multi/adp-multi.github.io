@@ -35,7 +35,7 @@ to you. The additional syntax overhead (`>>>` etc.) will be useful for higher di
 
 ## Integrated yield size analysis
 
-Contrary to Haskell-ADP, we don't use different combinators for specifying the
+Contrary to Haskell-ADP, adp-multi doesn't use different combinators for specifying the
 yield sizes. Instead, a restricted yield size analysis is performed before running
 the actual dynamic programming algorithm. Restricted, because it can't detect cycles
 and would loop indefinitely if not told to stop. The special combinators `~~~|` and `~~~||` are used
@@ -68,8 +68,8 @@ As it is always good to learn by example, please have a look at the
 [Tests](https://github.com/neothemachine/adp-multi/tree/master/tests/ADP/Tests) folder.
 There you will find:
 
-- `CopyExample.hs` a grammar which models the copy language ($L = \{ ww | w \in \{a,b\}^* \}$)
-- `NestedExample.hs` a grammar for nested RNA secondary structures
+- `CopyExample.hs` a grammar for the copy language L = { ww | w € {a,b}^* }
+- `NestedExample.hs` a grammar for nested RNA secondary structures (1-dim nonterminals)
 - `RGExample.hs` a grammar for RNA sec. structures with canonical simple recursive pseudoknots
 - `OneStructureExample.hs` a grammar for RNA 1-structures (4 types of pseudoknots)
 - `ZeroStructureTwoBackbonesExample.hs` a grammar for 0-structures over two backbones (RNA-RNA)
