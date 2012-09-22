@@ -38,10 +38,10 @@ to you. The additional syntax overhead (`>>>` etc.) will be useful for higher di
 Contrary to Haskell-ADP, we don't use different combinators for specifying the
 yield sizes. Instead, a restricted yield size analysis is performed before running
 the actual dynamic programming algorithm. Restricted, because it can't detect cycles
-and would loop indefinitely if not told to stop. The special combinator `~~~|` is used
+and would loop indefinitely if not told to stop. The special combinators `~~~|` and `~~~||` are used
 for that case which means that the symbol on the right side of the combinator shouldn't be
 considered when calculating the yield size. The symbol is then assumed to have a minimum yield
-size of 0 and an unknown maximum yield size.
+size of 0 and an unknown maximum yield size in every dimension.
 
 ## 2-dimensional nonterminals
 
@@ -53,7 +53,7 @@ As explained in the [MCFG page](/mcfg) there are two representations of multiple
 the original functional-style representation by 
 [Seki et al. (1991)](http://www.sciencedirect.com/science/article/pii/030439759190374B) 
 and the newer inlined-style one by [Wild (2010)](https://kluedo.ub.uni-kl.de/frontdoor/index/index/docId/2285).
-As the functional-style representation fits better for implementing it via parser combinators, this form
+As the functional-style representation fits better for implementation via parser combinators, this style
 was chosen for adp-multi.
 
 Have a look at
@@ -63,6 +63,18 @@ you have to use either `>>>|` or `>>>||` to combine a rule with its rewriting fu
 At the moment there is no type-safety for rewriting functions, so be careful with the list
 argument and return value (it will fail at run-time though). If you want more information on that, 
 have a look at the [syntax page](/syntax).
+
+As it is always good to learn by example, please have a look at the 
+[Tests](https://github.com/neothemachine/adp-multi/tree/master/tests/ADP/Tests) folder.
+There you will find:
+
+- `CopyExample.hs` a grammar which models the copy language ($L = \{ ww | w \in \{a,b\}^* \}$)
+- `NestedExample.hs` a grammar for nested RNA secondary structures
+- `RGExample.hs` a grammar for RNA sec. structures with canonical simple recursive pseudoknots
+- `OneStructureExample.hs` a grammar for RNA 1-structures (4 types of pseudoknots)
+- `ZeroStructureTwoBackbonesExample.hs` a grammar for 0-structures over two backbones (RNA-RNA)
+- `Suite.hs` a small test suite
+- `Main.hs` the entry point of the test executable, an easy way to try out things
 
 ## Higher dimensions
 
