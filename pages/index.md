@@ -1,7 +1,8 @@
 ---
 title: adp-multi
 description: adp-multi is an adaptation of the Algebraic Dynamic Programming 
-             method for multiple context-free grammars.
+             method for multiple context-free grammars
+layout: page_index
 ---
 
 ## What is adp-multi?

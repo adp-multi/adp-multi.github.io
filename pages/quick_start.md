@@ -1,5 +1,5 @@
 ---
-title : Quick start
+title: Quick start
 description:
 ---
 
@@ -68,7 +68,7 @@ As it is always good to learn by example, please have a look at the
 [Tests](https://github.com/neothemachine/adp-multi/tree/master/tests/ADP/Tests) folder.
 There you will find:
 
-- `CopyExample.hs` a grammar for the copy language L = { ww | w € {a,b}^* }
+- `CopyExample.hs` a grammar for the copy language L = { ww | w in {a,b}^* }
 - `NestedExample.hs` a grammar for nested RNA secondary structures (1-dim nonterminals)
 - `RGExample.hs` a grammar for RNA sec. structures with canonical simple recursive pseudoknots
 - `OneStructureExample.hs` a grammar for RNA 1-structures (4 types of pseudoknots)
