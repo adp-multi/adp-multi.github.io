@@ -26,14 +26,14 @@ The algebra aspect stays exactly the same.
 	K = knot1 << P K >> \ (p1,p2) (k1,k2) -> (k1 p1, p2 k2)
 	  | knot2 << P
 
-Of course rewriting functions should also be assignable to separate identifiers
+Of course, rewriting functions should also be assignable to separate identifiers
 to allow reuse:
 
 	rewriteKnot1 (p1,p2) (k1,k2) = (k1 p1, p2 k2)
 	K = knot1 << P K >> rewriteKnot1
 	  | knot2 << P
 
-## This is how it actually is (at the moment)
+## This is how it actually looks (at the moment)
 
 	s = tabulated1 $
 		nil  <<< empty >>>| id |||
@@ -148,3 +148,43 @@ lists are used in all such cases. This means that related errors
 will only be detected at runtime.
 
 If someone has hints on that, I would be very thankful!
+
+## Why can't terminal symbols be included in rewriting functions?
+
+The formalism of MCFGs allows to write rewriting rules like the following:
+
+<div>$$
+K \rightarrow g[K] \mid (a, b)\\
+g[(x_1,x_2)] = (x_1 a, b x_2)
+$$</div>
+
+Another (less usual) way is:
+
+<div>$$
+K \rightarrow g[K,a,b] \mid (a, b)\\
+g[(x_1,x_2),x_3,x_4] = (x_1 x_3, x_4 x_2)
+$$</div>
+
+or:
+
+<div>$$
+K \rightarrow g[K,(a,b)] \mid (a, b)\\
+g[(x_1,x_2),(x_3,x_4)] = (x_1 x_3, x_4 x_2)
+$$</div>
+
+Only the last two ways can be used in adp-multi:
+
+	k = val <<< 'a' ~~~ 'b' ~~~|| k >>>|| g
+	g [x3,x4,x1,x2] = ([x1,x3],[x4,x2])
+	
+and
+	
+	k = val <<< ('a','b') ~~~|| k >>>|| g
+	g [x3,x4,x1,x2] = ([x1,x3],[x4,x2])
+	
+(Note: `k` was put at the end of the rule so that the `~~~||` operator can be applied to `k` in order
+       to avoid a cycle in yield size analysis)
+	   
+This little restriction made the implementation a lot easier and shouldn't cause any
+real inconvenience. It might even help in more quickly recognizing all parts of
+a rule without looking at the rewriting functions.
