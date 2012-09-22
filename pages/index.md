@@ -4,10 +4,6 @@ description: adp-multi is an adaptation of the Algebraic Dynamic Programming
              method for multiple context-free grammars.
 ---
 
-<div align="center">
-  <object type="image/svg+xml" data="media/adpmulti_logo.svg" width="100" height="100"></object>
-</center>
-
 ## What is adp-multi?
 
 adp-multi is an adaptation of the [Algebraic Dynamic Programming](http://bibiserv.techfak.uni-bielefeld.de/adp/)
