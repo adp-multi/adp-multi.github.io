@@ -1,8 +1,12 @@
 ---
-title: <center><object type="image/svg+xml" data="media/adpmulti_logo.svg" width="100" height="100"></object></center>
+title: adp-multi
 description: adp-multi is an adaptation of the Algebraic Dynamic Programming 
              method for multiple context-free grammars.
 ---
+
+<div align="center">
+  <object type="image/svg+xml" data="media/adpmulti_logo.svg" width="100" height="100"></object>
+</center>
 
 ## What is adp-multi?
 
