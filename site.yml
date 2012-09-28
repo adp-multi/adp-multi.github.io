@@ -11,6 +11,6 @@ navigation :
   - quick_start.md
   - MCFG.md
   - syntax.md
-  - architecture.md
+#  - architecture.md
 #  - about.md
   
