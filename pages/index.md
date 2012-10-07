@@ -29,6 +29,11 @@ If you don't know multiple context-free grammars yet, then you should first read
 After that, you should go to the [quick start guide](/quick_start) where you learn
 what's different compared to original Haskell-ADP and how to write your own grammars.
 
+There's also a short motivational/introductional talk called 
+"[Predicting Pseudoknots Without Hacking in C]({{urls.media}}/talk_herbstseminar2012.pdf)"
+that I gave at the "10. Herbstseminar der Bioinformatik" (2012) which summarizes why adp-multi is useful
+and in which direction future work might go.
+
 ## Questions? Comments? Bugs?
 
 For code-related bugs or suggestions, please create an issue in the [issue tracker](https://github.com/neothemachine/adp-multi/issues).

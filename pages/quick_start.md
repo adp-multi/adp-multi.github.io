@@ -22,6 +22,8 @@ When you're confident with the idea of ADP *and* if you're a bio informatics guy
 should ask yourself how pseudoknots or the RNA-RNA interaction problem can be modelled
 by context-free grammars. They can't! That's what multiple context-free grammars are for, and
 adp-multi extends ADP by supporting them directly.
+Have a look at the slides of a talk I gave at the "10. Herbstseminar der Bioinformatik" (2012) called 
+"[Predicting Pseudoknots Without Hacking in C]({{urls.media}}/talk_herbstseminar2012.pdf)".
 
 ## People coming from Haskell-ADP, ADPfusion, ADPC, GAP
 
