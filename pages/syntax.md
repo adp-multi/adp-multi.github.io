@@ -3,11 +3,7 @@ title : Syntax
 description:
 ---
 
-Incorporating MCFGs into the method of ADP is quite straight forward.
-
-It means having multi-dimensional nonterminals and therefore also rewriting functions.
-
-The algebra aspect stays exactly the same.
+As explained in the [ADP for MCFL](/adp_for_mcfl) page, the main change compared to ADP for CFL is the addition of rewriting functions.
 
 ## This is how a nice syntax could look like
 

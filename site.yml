@@ -9,7 +9,8 @@ navigation :
 #  - categories.html
 #  - pages.html
   - quick_start.md
-  - MCFG.md
+  - MCFL.md
+  - adp_for_mcfl.md
   - syntax.md
 #  - architecture.md
 #  - about.md

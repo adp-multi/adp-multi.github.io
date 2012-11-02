@@ -1,14 +1,13 @@
 ---
 title: adp-multi
 description: adp-multi is an adaptation of the Algebraic Dynamic Programming 
-             method for multiple context-free grammars
+             method for multiple context-free languages
 layout: page_index
 ---
 
 ## What is adp-multi?
 
-adp-multi is an adaptation of the [Algebraic Dynamic Programming](http://bibiserv.techfak.uni-bielefeld.de/adp/)
-method for [multiple context-free grammars](mcfg).
+adp-multi is an implementation of [Algebraic Dynamic Programming](http://bibiserv.techfak.uni-bielefeld.de/adp/) for [multiple context-free languages](mcfg).
 
 It is a library based on the original [Haskell implementation](https://bitbucket.org/gsauthof/adpcombinators)
 and can be considered an unoptimized prototype.
@@ -23,16 +22,14 @@ If you are new to ADP, then it's best to go through the
 [online course](http://bibiserv.techfak.uni-bielefeld.de/cgi-bin/dpcourse) of the Bielefeld University
 and/or read a [tutorial-style paper](http://dx.doi.org/10.1016/j.scico.2003.12.005) from its inventors.
 
-If you don't know multiple context-free grammars yet, then you should first read the 
-[explanation](mcfg) for it.
+If you don't know the class of multiple context-free languages yet, then you should first read the [explanation](mcfl) of them.
 
 After that, you should go to the [quick start guide](/quick_start) where you learn
 what's different compared to original Haskell-ADP and how to write your own grammars.
 
 There's also a short motivational/introductional talk called 
 "[Predicting Pseudoknots Without Hacking in C]({{urls.media}}/talk_herbstseminar2012.pdf)"
-that I gave at the "10. Herbstseminar der Bioinformatik" (2012) which summarizes why adp-multi is useful
-and in which direction future work might go.
+that I gave at the "10. Herbstseminar der Bioinformatik" (2012) which summarizes why adp-multi is useful and in which direction future work might go.
 
 ## Questions? Comments? Bugs?
 

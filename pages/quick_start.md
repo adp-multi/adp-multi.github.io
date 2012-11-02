@@ -21,7 +21,7 @@ the [tutorial-style paper](http://dx.doi.org/10.1016/j.scico.2003.12.005) from i
 When you're confident with the idea of ADP *and* if you're a bio informatics guy, then you
 should ask yourself how pseudoknots or the RNA-RNA interaction problem can be modelled
 by context-free grammars. They can't! That's what multiple context-free grammars are for, and
-adp-multi extends ADP by supporting them directly.
+adp-multi extends ADP by supporting the class of languages that MCFG generate.
 Have a look at the slides of a talk I gave at the "10. Herbstseminar der Bioinformatik" (2012) called 
 "[Predicting Pseudoknots Without Hacking in C]({{urls.media}}/talk_herbstseminar2012.pdf)".
 
@@ -47,11 +47,11 @@ size of 0 and an unknown maximum yield size in every dimension.
 
 ## 2-dimensional nonterminals
 
-If you haven't done so, now is a good time to [learn about what MCFGs are](/mcfg). When you're
+If you haven't done so, now is a good time to [learn what MCFGs are](/mcfl). When you're
 done, you can continue here.
 
 For everything higher than one dimension you have to use a rewriting function for each grammar rule.
-As explained in the [MCFG page](/mcfg) there are two representations of multiple context-free grammars:
+As explained in the [MCFL page](/mcfl) there are two representations of multiple context-free grammars:
 the original functional-style representation by 
 [Seki et al. (1991)](http://www.sciencedirect.com/science/article/pii/030439759190374B) 
 and the newer inlined-style one by [Wild (2010)](https://kluedo.ub.uni-kl.de/frontdoor/index/index/docId/2285).
