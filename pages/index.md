@@ -7,7 +7,7 @@ layout: page_index
 
 ## What is adp-multi?
 
-adp-multi is an implementation of [Algebraic Dynamic Programming](http://bibiserv.techfak.uni-bielefeld.de/adp/) for [multiple context-free languages](mcfg).
+adp-multi is an implementation of [Algebraic Dynamic Programming](http://bibiserv.techfak.uni-bielefeld.de/adp/) for [multiple context-free languages](mcfl).
 
 It is a library based on the original [Haskell implementation](https://bitbucket.org/gsauthof/adpcombinators)
 and can be considered an unoptimized prototype.
