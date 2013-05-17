@@ -30,6 +30,7 @@ what's different compared to original Haskell-ADP and how to write your own gram
 There's also a short motivational/introductional talk called 
 "[Predicting Pseudoknots Without Hacking in C]({{urls.media}}/talk_herbstseminar2012.pdf)"
 that I gave at the "10. Herbstseminar der Bioinformatik" (2012) which summarizes why adp-multi is useful and in which direction future work might go.
+Note that the adp-multi syntax in the slides is outdated.
 
 ## Questions? Comments? Bugs?
 
