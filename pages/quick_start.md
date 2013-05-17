@@ -50,8 +50,8 @@ specified manually so that the automated yield size analysis is skipped and does
 If you haven't done so, now is a good time to [learn what MCFGs are](/mcfl). When you're
 done, you can continue here.
 
-For everything higher than one dimension you have to use a rewriting function for each grammar rule.
-As explained in the [MCFL page](/mcfl) there are two representations of multiple context-free grammars:
+For everything higher than one dimension you have to use a custom rewriting function for each grammar rule (instead of `id`).
+As explained in the [MCFG page](/mcfl) there are two representations of multiple context-free grammars:
 the original functional-style representation by 
 [Seki et al. (1991)](http://www.sciencedirect.com/science/article/pii/030439759190374B) 
 and the newer inlined-style one by [Wild (2010)](https://kluedo.ub.uni-kl.de/frontdoor/index/index/docId/2285).
@@ -60,7 +60,7 @@ was chosen for adp-multi.
 
 Have a look at
 [tests/ADP/Tests/RGExample.hs](https://github.com/adp-multi/adp-multi/blob/master/tests/ADP/Tests/RGExample.hs)
-and scroll to the bottom where the grammar is. Ýou have to use `>>>` to combine a rule with its rewriting function.
+and scroll to the bottom where the grammar is. You have to use `>>>` to combine a rule with its rewriting function.
 At the moment there is no type-safety for rewriting functions, so be careful with the list
 argument and return value (it will fail at run-time though). If you want more information on that, 
 have a look at the [syntax page](/syntax).
@@ -71,23 +71,23 @@ There you will find:
 
 Copy language:
 
-- `CopyExample.hs` a grammar for the copy language $L = \{ ww \mid w \in \{a,b\}^* \}$
-- `CopyTwoTrackExample.hs` a two-track grammar for the tupled copy language $L = \{ (w,w) \mid w \in \{a,b\}^* \}$
+- `CopyExample.hs` a grammar for the copy language L = { ww | w in {a,b}^* }
+- `CopyTwoTrackExample.hs` a two-track grammar for the tupled copy language L = { (w,w) | w in {a,b}^* }
 
-RNA folding:
+RNA secondary structure prediction:
 
 - `NestedExample.hs` a grammar for nested RNA secondary structures (1-dim nonterminals)
-- `RGExample.hs` a grammar for RNA sec. structures with canonical simple recursive pseudoknots
-- `RGExampleDim2.hs` same as `RGExample.hs` but with 1-dim nonterminals encoded as 2-dim nonterminals (testing purposes)
-- `RGExampleStar.hs` same as `RGExample.hs` but with $(\mathcal{A}^*)^i$ used in signature instead of $\mathcal{A}$ and $(\mathcal{A},$\mathcal{A}$)$
-- `OneStructureExample.hs` a grammar for RNA 1-structures (4 types of pseudoknots)
-- `ZeroStructureTwoBackbonesExample.hs` a grammar for 0-structures over two backbones (RNA-RNA)
+- `RGExample.hs` a grammar for RNA sec. structures with [canonical simple recursive pseudoknots](http://www.biomedcentral.com/1471-2105/5/104/) (only the first canonization rule is used)
+- `RGExampleDim2.hs` same as `RGExample.hs` but with 1-dim nonterminals encoded as 2-dim nonterminals (for testing purposes)
+- `RGExampleStar.hs` same as `RGExample.hs` but with $(\mathcal{A}^*)^i$ used in signature instead of $\mathcal{A}$ and $(\mathcal{A},\mathcal{A})$
+- `OneStructureExample.hs` a grammar for RNA [1-structures](http://bioinformatics.oxfordjournals.org/content/27/8/1076.full) (4 types of pseudoknots)
+- `ZeroStructureTwoBackbonesExample.hs` a grammar for RNA [0-structures over two backbones](http://arxiv.org/pdf/1112.6194v1.pdf) (RNA-RNA interaction problem)
 - `Nussinov.lhs` benchmark grammar using original Haskell-ADP, equal to `NestedExample.hs`
 
 Sequence/tree alignment:
 
-- `AlignmentExample.hs` Needleman-Wunsch global alignment of two sequences
-- `TreeAlignExample.hs` Jiang-Wang-Zhang alignment of two trees encoded as sequences (terms)
+- `AlignmentExample.hs` [Needleman-Wunsch global alignment](http://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm) of two sequences
+- `TreeAlignExample.hs` [Jiang-Wang-Zhang alignment](http://www.techfak.uni-bielefeld.de/ags/pi/lehre/PatTreesWS11/1-s2.0-0304397595800299-main.pdf) of two trees encoded as sequences (terms)
 
 Auxiliary files:
 
@@ -101,4 +101,4 @@ a more generic approach instead of implementing code for every dimension (which 
 hasn't been found yet. At least for the domain of RNA secondary structure
 prediction, having more than two dimensions isn't needed for the current state of research.
 See also "[Algebraic and Combinatorial Properties of Common RNA Pseudoknot Classes with Applications](http://wwwagak.cs.uni-kl.de/Veroffentlichungen/func-startdown/8.html)"
-by Markus E. Nebel and Frank Weinberg.
+by Markus E. Nebel and Frank Weinberg (2012).
