@@ -7,7 +7,7 @@ description:
 
 Regular tree grammars are used for that purpose, as in ADP for CFL. To incorporate the expressive power of MCFL, the rewriting functions of MCFG are made part of the term language over which the tree grammar is described.
 
-Therefore, we define a *multiple tree grammar* over $\Sigma$ as $\mathcal{G} = (V,\mathcal{A},Z,F,P)$ which is a regular tree grammar over $\Sigma \times F$. 
+Therefore, we define an *ADP-MCFL grammar* over $\Sigma$ as $\mathcal{G} = (V,\mathcal{A},Z,F,P)$ which is a regular tree grammar over $\Sigma \times F$. 
 
 $\mathcal{A}$ is the alphabet of the input string.
 

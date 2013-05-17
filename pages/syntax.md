@@ -9,7 +9,7 @@ As explained in the [ADP for MCFL](/adp_for_mcfl) page, the main change compared
 
 	S = nil  << empty
 	  | left << B S
-	  | pair << P S S >> \ (p1,p2) s1 s2 -> p1 s1 p2 s2
+	  | pair << P S S       >> \ (p1,p2) s1 s2 -> p1 s1 p2 s2
 	  | knot << K K S S S S >> \ (k11,k12) (k21,k22) s1 s2 s3 s4 -> k11 s1 k21 s2 k12 s3 k22 s4
 	  ... h
 	  
@@ -31,28 +31,34 @@ to allow reuse:
 
 ## This is how it actually looks (at the moment)
 
+	rewritePair, rewriteKnot :: Dim1 
+
 	s = tabulated1 $
-		nil  <<< empty >>>| id |||
-		left <<< b ~~~| s >>>| id |||
-		pair <<< p ~~~| s ~~~| s >>>| (\ [p1,p2,s1,s2] -> [p1,s1,p2,s2])
-		knot <<< k ~~~ k ~~~| s ~~~| s ~~~| s ~~~| s >>>| (\ [k11,k12,k21,k22,s1,s2,s3,s4] -> [k11,s1,k21,s2,k12,s3,k22,s4])
+		yieldSize1 (0,Nothing) $
+		nil  <<< empty         >>> id |||
+		left <<< b ~~~ s       >>> id |||
+		pair <<< p ~~~ s ~~~ s >>> (\ [p1,p2,s1,s2] -> [p1,s1,p2,s2]) |||
+		knot <<< k ~~~ k ~~~ s ~~~ s ~~~ s ~~~ s >>> (\ [k11,k12,k21,k22,s1,s2,s3,s4] -> [k11,s1,k21,s2,k12,s3,k22,s4])
 		... h
 		
     b = tabulated1 $
-        base <<< 'a' >>>| id |||
-        base <<< 'u' >>>| id |||
-        base <<< 'c' >>>| id |||
-        base <<< 'g' >>>| id
+        base <<< 'a' >>> id |||
+        base <<< 'u' >>> id |||
+        base <<< 'c' >>> id |||
+        base <<< 'g' >>> id
 		
 	p = tabulated2 $
-		bpair <<< ('a','u') >>>|| id2 |||
-		bpair <<< ('u','a') >>>|| id2 |||
+		bpair <<< ('a','u') >>> id2 |||
+		bpair <<< ('u','a') >>> id2 |||
 		[...]
 		
+	rewriteKnot1 :: Dim2
 	rewriteKnot1 [p1,p2,k1,k2] = ([k1,p1],[p2,k2])
+	
 	k = tabulated2 $
-		knot1 <<< p ~~~|| k >>>|| rewriteKnot1 |||
-		knot2 <<< p >>>|| id2
+		yieldSize2 (1,Nothing) (1,Nothing) $
+		knot1 <<< p ~~~ k >>> rewriteKnot1 |||
+		knot2 <<< p       >>> id2
 	
 ## Differences explained
 
@@ -88,7 +94,7 @@ which is why it is used.
 Using `<<` would be possible but for reasons of symmetry to `|||` and `>>>`, it
 is defined as `<<<`.
 
-### `~~~`, `~~~|`, and `~~~||` (or: How does yield size analysis work?)
+### `yieldSize1` and `yieldSize2` (or: How does yield size analysis work?)
 
 The original Haskell-ADP implementation has several combinators to connect
 two non-terminals (`~~~`,`-~~`,`~~-`,`+~~`,`~~+`,`+~+`,...). Those different
@@ -102,24 +108,13 @@ and then knows the minimum and possibly maximum yield sizes of each nonterminal.
 In adp-multi, a restricted yield size analysis was built in. Restricted means that
 it doesn't handle cycles because this would require a full blown abstract syntax tree
 analysis of the grammar (as in GAP-C). Therefore the grammar writer has to tell the
-parser where the cycles are and then explicitly cut them off by using `~~~|` and
-`~~~||`, respectively. Cutting off means that the parser should assume a minimum 
-yield size of 0 and an unknown maximum yield size in every dimension for the
-right hand nonterminal.
+parser where the cycles are and then explicitly cut them off by using `yieldSize1` and
+`yieldSize2`, respectively. Cutting off means that the minimum and maximum yield size
+of a nonterminal is specified manually, therefore skipping the yield size analysis.
 
-E.g. `k = knot1 <<< p ~~~|| k`
-
-Because `k` is a 2-dim nonterminal, we use `~~~||`, for 1-dim it would be `~~~|`.
-
-### `>>` vs `>>>|` and `>>>||`
+### `>>` vs `>>>`
 
 For symmetry reasons, `>>>` was chosen for rewriting function.
-
-In adp-multi, the typing for multiple dimensions is realized as lists instead
-of multiple arguments with different tuple sizes. This is unfortunate and should change
-in future versions, but at the moment this forces us to use a new rewriting
-combinator for every dimension: `>>>|` for 1-dim nonterminals, and `>>>||` for
-2-dim nonterminals. Again, choosing the wrong one will only lead to runtime errors.
 
 ### `>>` optional vs required
 
@@ -133,7 +128,7 @@ done implicitly by using Haskell's type classes.
 
 ### `\ (p1,p2) s1 s2` vs `\ [p1,p2,s1,s2]`
 
-Having a rule like `val <<< p ~~~ p >>>|| rewrite` and making it typesafe means
+Having a rule like `val <<< p ~~~ p >>> rewrite` and making it typesafe means
 that the two nonterminal parsers have to be applied one after another both
 to `val` and `rewrite`. This seems rather complicated, considering that
 each nonterminal parser can have a different dimension. I'm sure that this is
@@ -147,7 +142,7 @@ If someone has hints on that, I would be very thankful!
 
 ## Why can't terminal symbols be included in rewriting functions?
 
-The formalism of MCFGs allows to write rewriting rules like the following:
+The formalism of MCFGs allows to write rewriting functions like the following:
 
 <div>$$
 K \rightarrow g[K] \mid (a, b)\\
@@ -170,17 +165,14 @@ $$</div>
 
 Only the last two ways can be used in adp-multi:
 
-	k = val <<< 'a' ~~~ 'b' ~~~|| k >>>|| g
+	k = val <<< 'a' ~~~ 'b' ~~~ k >>> g
 	g [x3,x4,x1,x2] = ([x1,x3],[x4,x2])
 	
 and
 	
-	k = val <<< ('a','b') ~~~|| k >>>|| g
+	k = val <<< ('a','b') ~~~ k >>> g
 	g [x3,x4,x1,x2] = ([x1,x3],[x4,x2])
-	
-(Note: `k` was put at the end of the rule so that the `~~~||` operator can be applied to `k` in order
-       to avoid a cycle in yield size analysis)
-	   
+		   
 This little restriction made the implementation a lot easier and shouldn't cause any
 real inconvenience. It might even help in more quickly recognizing all parts of
 a rule without looking at the rewriting functions.
