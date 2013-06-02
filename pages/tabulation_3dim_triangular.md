@@ -26,6 +26,10 @@ Tabulation.prototype.solve = function(x1,x2,x3,x4,x5,x6,c) {
 
 Tabulation.prototype.fill = function() {
 	var len = this.len;
+	
+	var l = (len+1)*(len+2)/2;
+	this.addBoundingBox(l,l,l);
+	
 	var c = 0;
 	for (var l=0; l<=len; l++) {
 		for (var x1=0; x1<=len-l; x1++) {

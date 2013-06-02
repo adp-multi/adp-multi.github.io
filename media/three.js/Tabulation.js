@@ -137,3 +137,13 @@ Tabulation.prototype.addCube = function(posX, posY, posZ) {
 	
 	this.cubes[posX + ";" + posY + ";" + posZ] = mesh;
 }
+
+Tabulation.prototype.addBoundingBox = function(w, h, d) {
+	var mesh = new THREE.Mesh(
+		new THREE.CubeGeometry(w, h, d),
+		new THREE.MeshBasicMaterial( { color: 0x0, wireframe: true} ));
+	mesh.position = new THREE.Vector3(w/2 - 1/2, h/2 - 1/2, d/2 - 1/2);
+	this.scene.add(mesh);
+	
+	this.cubes["bb"] = mesh;
+}

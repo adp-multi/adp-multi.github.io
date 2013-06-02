@@ -28,6 +28,9 @@ Tabulation.prototype.fill = function(y1, y2) {
 	}
 
 	var len = this.len;
+	
+	this.addBoundingBox(len+1,len+1,1);
+	
 	var c = 0;
 	for (var l=0; l<=len; l++) {
 		for (var x1=0; x1<=len-l; x1++) {
