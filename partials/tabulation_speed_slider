@@ -1,0 +1,22 @@
+<div style="clear:both; float:left; margin-right:20px; width: 150px">
+	Delay:
+	<span id="delay" style="font-weight: bold;"></span> (try 0!)
+</div>
+<div id="slider-delay" style="float: left; width:100px; margin-right:20px; margin-top:6px"></div>
+(note: doesn't affect a running animation)
+
+<script>
+$(function() {
+	$( "#slider-delay" ).slider({
+		value: {{page.speed}},
+		min: 0,
+		max: 100,
+		step: 10,
+		slide: function( event, ui ) {
+			$( "#delay" ).text( ui.value );
+			window.tab.speed = ui.value;
+		}
+	});
+	$( "#delay" ).text( $( "#slider-delay" ).slider( "value" ) );
+});
+</script>

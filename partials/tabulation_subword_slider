@@ -1,0 +1,39 @@
+<div style="clear:both;float:left; margin-right:20px; width: 150px">
+	First subword:
+	<span id="subword" style="font-weight: bold;"></span>
+</div>
+<div id="slider-range" style="float: left; width:200px; margin-top:6px"></div>
+
+<script>
+$( "#slider" ).on( "slide", function( event, ui ) {
+	if ($( "#slider-range" ).slider( "values", 1 ) > ui.value) {
+		$( "#slider-range" ).slider( "values", 1, ui.value);
+		
+		$( "#slider-range" ).slider( "values", 0, 
+			Math.min(ui.value, $( "#slider-range" ).slider( "values", 0 )));
+	}
+	$( "#slider-range" ).slider( "option", { 
+		max: ui.value
+	} );
+} );
+
+$(function() {
+	$( "#slider-range" ).slider({
+		range: true,
+		min: 0,
+		max: 4,
+		values: [ 1, 2 ],
+		slide: function( event, ui ) {
+			$( "#subword" ).text( ui.values[ 0 ] + " , " + ui.values[ 1 ] );
+			window.tab.freshScene();
+			window.tab.fill(ui.values[ 0 ], ui.values[ 1 ]);
+		},
+		// for programmatic slider changes
+		change: function( event, ui ) {
+			$( "#subword" ).text( ui.values[ 0 ] + " , " + ui.values[ 1 ] );
+		}
+	});
+	$( "#subword" ).text( $( "#slider-range" ).slider( "values", 0 ) +
+		" , " + $( "#slider-range" ).slider( "values", 1 ) );
+});
+</script>

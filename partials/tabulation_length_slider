@@ -1,0 +1,22 @@
+<div style="clear:both; float:left; margin-right:20px; width: 150px">
+	Word length:
+	<span id="length" style="font-weight: bold;"></span>
+</div>
+<div id="slider" style="float: left; width:100px; margin-top:6px"></div>
+
+<script>
+$(function() {
+	$( "#slider" ).slider({
+		value:4,
+		min: 0,
+		max: 10,
+		slide: function( event, ui ) {
+			$( "#length" ).text( ui.value );
+			window.tab.freshScene();
+			window.tab.len = ui.value;
+			window.tab.fill();
+		}
+	});
+	$( "#length" ).text( $( "#slider" ).slider( "value" ) );
+});
+</script>
