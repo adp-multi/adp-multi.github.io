@@ -76,7 +76,7 @@ Tabulation.prototype.init = function(container) {
 			
 	this.geometry = new THREE.CubeGeometry(1, 1, 1);
 	
-	var texture = THREE.ImageUtils.loadTexture( 'assets/media/three.js/tex.gif', new THREE.UVMapping(),
+	var texture = THREE.ImageUtils.loadTexture( '/assets/media/three.js/tex.gif', new THREE.UVMapping(),
 		this.render.bind(this));
 	texture.anisotropy = this.renderer.getMaxAnisotropy();
 	
