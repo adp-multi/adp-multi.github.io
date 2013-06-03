@@ -10,7 +10,7 @@ The solution for the subword pair $(i..j,k..l)$ is stored at $M[i,j,k,l]$ where 
 
 The visualization fixes the first index of the first subword and then displays the three-dimensional matrix for it. See also an [alternative visualization](/tabulation_2dim_naive).
 
-**Hint**: Rotate/pan/zoom with your mouse buttons and scroll wheel!
+**Hint**: Rotate and zoom with your left mouse button and scroll wheel!
 
 {{> tabulation_speed_slider }}
 

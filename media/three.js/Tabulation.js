@@ -61,13 +61,14 @@ Tabulation.prototype.init = function(container) {
 	this.camera = new THREE.OrthographicCamera( 
 		-this.zoom*width, this.zoom*width, this.zoom*height, -this.zoom*height, 1, 1000  );
 	this.camera.position.z = 100;
-	
+		
 	this.renderer.domElement.addEventListener( 'mousewheel', this.mousewheel.bind(this), false );
 	this.renderer.domElement.addEventListener( 'DOMMouseScroll', this.mousewheel.bind(this), false ); // firefox
 	
 	this.controls = new THREE.TrackballControls( this.camera, this.renderer.domElement );
 	this.controls.addEventListener( 'change', this.render.bind(this) );
 	this.controls.noZoom = true;
+	this.controls.noPan = true;
 	
 	this.scene = new THREE.Scene();
 	
@@ -131,7 +132,7 @@ Tabulation.prototype.addCube = function(posX, posY, posZ) {
 	}
 
 	var mesh = new THREE.Mesh(this.geometry, this.material);
-	mesh.position = new THREE.Vector3(posX, posY, posZ);
+	mesh.position = new THREE.Vector3(posX-this.bb.w/2+1/2, posY-this.bb.h/2+1/2, posZ-this.bb.d/2+1/2);
 	this.scene.add(mesh);
 	this.render();
 	
@@ -142,8 +143,14 @@ Tabulation.prototype.addBoundingBox = function(w, h, d) {
 	var mesh = new THREE.Mesh(
 		new THREE.CubeGeometry(w, h, d),
 		new THREE.MeshBasicMaterial( { color: 0x0, wireframe: true} ));
-	mesh.position = new THREE.Vector3(w/2 - 1/2, h/2 - 1/2, d/2 - 1/2);
+	mesh.position = new THREE.Vector3(0, 0, 0);
 	this.scene.add(mesh);
 	
 	this.cubes["bb"] = mesh;
+	
+	this.bb = {
+		w: w,
+		h: h,
+		d: d
+	};
 }

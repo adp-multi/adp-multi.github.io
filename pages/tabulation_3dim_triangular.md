@@ -8,7 +8,8 @@ speed: 20
 
 The solution for the subword triple $(i..j,k..l,m..n)$ is stored at $M[adr(i,j),adr(k,l),adr(m,n)]$ where $M$ is a three-dimensional matrix and $adr(i,j) = |w|\cdot i - (i\cdot(i-1)) \div 2 + j$. Similar to the [two-dimensional case](/tabulation_2dim_triangular) space loss is caused by overlapping subwords.
 
-**Hint**: Rotate/pan/zoom with your mouse buttons and scroll wheel!
+**Hint**: Rotate and zoom with your mouse buttons and scroll wheel!
+
 
 {{> tabulation_speed_slider }}
 

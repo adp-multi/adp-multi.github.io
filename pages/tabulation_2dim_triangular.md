@@ -8,7 +8,7 @@ speed: 50
 
 The solution for the subword pair $(i..j,k..l)$ is stored at $M[adr(i,j),adr(k,l)]$ where $M$ is a two-dimensional matrix and $adr(i,j) = |w|\cdot i - (i\cdot(i-1)) \div 2 + j$. This partially eliminates the space loss of the [naive strategy](/tabulation_2dim_naive) -- while overlapping subwords still cause space loss (see the holes in the matrix).
 
-**Hint**: Pan/zoom with your mouse buttons and scroll wheel!
+**Hint**: Zoom out with your mouse scroll wheel for bigger word lengths!
 
 {{> tabulation_speed_slider }}
 
