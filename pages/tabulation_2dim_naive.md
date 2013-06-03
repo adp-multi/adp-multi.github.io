@@ -30,6 +30,12 @@ Tabulation.prototype.fill = function(y1, y2) {
 	var len = this.len;
 	
 	this.addBoundingBox(len+1,len+1,1);
+	this.addText("k", len/2+1/2, -2, 0);
+	this.addText(0, 0, -2, 0);
+	this.addText(len, len, -2, 0);
+	this.addText("l", -1.5, len/2, 0);
+	this.addText(0, -1.7, 0, 0);
+	this.addText(len, -1.7, len, 0);
 	
 	var c = 0;
 	for (var l=0; l<=len; l++) {

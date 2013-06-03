@@ -63,6 +63,15 @@ Tabulation.prototype.fill = function(y1) {
 	var len = this.len;
 	
 	this.addBoundingBox(len+1,len+1,len+1);
+	this.addText("j", len/2+1/2, -2, 0);
+	this.addText(0, 0, -2, 0);
+	this.addText(len, len, -2, 0);
+	this.addText("k", -1.5, len/2, 0);
+	this.addText(0, -1.7, 0, 0);
+	this.addText(len, -1.7, len, 0);
+	this.addText("l", -1.5, -2, len/2);
+	this.addText(0, -1.7, -2, 0);
+	this.addText(len, -1.7, -2, len);
 	
 	var c = 0;
 	for (var l=0; l<=len; l++) {

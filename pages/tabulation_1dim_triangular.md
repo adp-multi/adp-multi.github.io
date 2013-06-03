@@ -6,7 +6,7 @@ speed: 100
 
 {{> tabulation_libs }}
 
-The solution for subword $i..j$ is stored at $M[|w|\cdot i - (i\cdot(i-1)) \div 2 + j]$ where $M$ is a one-dimensional array. This completely eliminates the space loss of the [naive strategy](/tabulation_1dim_naive).
+The solution for subword $i..j$ is stored at $M[|w|\cdot i - (i\cdot(i-1)) \div 2 + j]$ where $M$ is a one-dimensional array of size $(|w|+1)\cdot(|w|+2) / 2$. This completely eliminates the space loss of the [naive strategy](/tabulation_1dim_naive).
 
 {{> tabulation_speed_slider }}
 
@@ -25,7 +25,10 @@ Tabulation.prototype.solve = function(x1,x2,c) {
 Tabulation.prototype.fill = function() {
 	var len = this.len;
 	
-	this.addBoundingBox((len+1)*(len+2) / 2,1,1);
+	var l = (len+1)*(len+2) / 2;
+	this.addBoundingBox(l,1,1);
+	this.addText(0, 0, -2, 0);
+	this.addText(l-1, l-1, -2, 0);
 	
 	var c = 0;
 	for (var l=0; l<=len; l++) {

@@ -4,3 +4,4 @@
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/three.js/r58/three.min.js"></script>
 <script type="text/javascript" src="{{urls.media}}/three.js/TrackballControls.js"></script>
 <script type="text/javascript" src="{{urls.media}}/three.js/Tabulation.js"></script>
+<script src="http://mrdoob.github.com/three.js/examples/fonts/helvetiker_regular.typeface.js"></script>

@@ -9,8 +9,10 @@ function Tabulation (container, len) {
 	this.len = len;
 	this.speed = 20;
 	
-	this.cubes = {};
+	this.cubes = {}; // for debugging only
 	this.delayedCubeTimers = [];
+	
+	this.objects = []; // current objects in the scene (except light etc.)
 
     this.init(container);
 	this.animate();
@@ -54,7 +56,7 @@ Tabulation.prototype.init = function(container) {
 	var width = $(container).width();
 	var height = width/1.5;
 
-	this.renderer = new THREE.WebGLRenderer(  );
+	this.renderer = new THREE.WebGLRenderer( {antialias:true} );
 	this.renderer.setSize( width, height );
 	
 	this.zoom = 0.02;
@@ -88,6 +90,19 @@ Tabulation.prototype.init = function(container) {
 	container.appendChild( this.renderer.domElement );
 }
 
+Tabulation.prototype.addText = function(text, posX, posY, posZ) {
+	var shapes = THREE.FontUtils.generateShapes( text, {
+	  font: "helvetiker",
+	  size: 1
+	} );
+	var geom = new THREE.ShapeGeometry( shapes );
+	var mat = new THREE.MeshBasicMaterial( { color: 0x0 });
+	var mesh = new THREE.Mesh( geom, mat );
+	mesh.position = new THREE.Vector3(posX-this.bb.w/2, posY-this.bb.h/2, posZ-this.bb.d/2);
+	this.scene.add(mesh);
+	this.objects.push(mesh);
+}
+
 Tabulation.prototype.freshScene = function() {
 	this.delayedCubeTimers.forEach(function(el) {
 		clearTimeout(el);
@@ -95,13 +110,13 @@ Tabulation.prototype.freshScene = function() {
 	this.delayedCubeTimers = [];
 	
 	var self = this;
-	Object.keys(this.cubes).forEach(function(key) {
-		var obj = self.cubes[key];
+	this.objects.forEach(function(obj) {
 		self.scene.remove(obj);                 
 		if (obj.dispose) {                                                                                     
 			obj.dispose();                                                                                       
 		}
 	});
+	this.objects = [];
 	this.cubes = {};
 }
 
@@ -137,6 +152,7 @@ Tabulation.prototype.addCube = function(posX, posY, posZ) {
 	this.render();
 	
 	this.cubes[posX + ";" + posY + ";" + posZ] = mesh;
+	this.objects.push(mesh);
 }
 
 Tabulation.prototype.addBoundingBox = function(w, h, d) {
@@ -146,7 +162,7 @@ Tabulation.prototype.addBoundingBox = function(w, h, d) {
 	mesh.position = new THREE.Vector3(0, 0, 0);
 	this.scene.add(mesh);
 	
-	this.cubes["bb"] = mesh;
+	this.objects.push(mesh);
 	
 	this.bb = {
 		w: w,
