@@ -17,41 +17,7 @@ function Tabulation (container, len) {
     this.init(container);
 	this.animate();
 }
-
-// TrackballControls doesn't allow zooming with OrthographicCamera's
-// therefore a manual implementation
-Tabulation.prototype.mousewheel = function( event ) {
-
-	event.preventDefault();
-	event.stopPropagation();
-
-	var delta = 0;
-
-	if ( event.wheelDelta ) { // WebKit / Opera / Explorer 9
-
-		delta = event.wheelDelta / 40;
-
-	} else if ( event.detail ) { // Firefox
-
-		delta = - event.detail / 3;
-
-	}
-		
-	var width = this.camera.right / this.zoom;
-	var height = this.camera.top / this.zoom;
-	
-	this.zoom -= delta * 0.001;
-	
-	this.camera.left = -this.zoom*width;
-	this.camera.right = this.zoom*width;
-	this.camera.top = this.zoom*height;
-	this.camera.bottom = -this.zoom*height;
-	
-	this.camera.updateProjectionMatrix();
-	
-	this.render();
-}
-    
+   
 Tabulation.prototype.init = function(container) {
 	var width = $(container).width();
 	var height = width/1.5;
@@ -64,12 +30,7 @@ Tabulation.prototype.init = function(container) {
 		-this.zoom*width, this.zoom*width, this.zoom*height, -this.zoom*height, 1, 1000  );
 	this.camera.position.z = 100;
 		
-	this.renderer.domElement.addEventListener( 'mousewheel', this.mousewheel.bind(this), false );
-	this.renderer.domElement.addEventListener( 'DOMMouseScroll', this.mousewheel.bind(this), false ); // firefox
-	
 	this.controls = new THREE.TrackballControls( this.camera, this.renderer.domElement );
-	this.controls.addEventListener( 'change', this.render.bind(this) );
-	this.controls.noZoom = true;
 	this.controls.noPan = true;
 	
 	this.scene = new THREE.Scene();
@@ -123,9 +84,6 @@ Tabulation.prototype.freshScene = function() {
 Tabulation.prototype.animate = function() {
 	requestAnimationFrame( this.animate.bind(this) );
 	this.controls.update();
-}
-	
-Tabulation.prototype.render = function() {
 	this.renderer.render( this.scene, this.camera );
 }
 
@@ -149,7 +107,6 @@ Tabulation.prototype.addCube = function(posX, posY, posZ) {
 	var mesh = new THREE.Mesh(this.geometry, this.material);
 	mesh.position = new THREE.Vector3(posX-this.bb.w/2+1/2, posY-this.bb.h/2+1/2, posZ-this.bb.d/2+1/2);
 	this.scene.add(mesh);
-	this.render();
 	
 	this.cubes[posX + ";" + posY + ";" + posZ] = mesh;
 	this.objects.push(mesh);
