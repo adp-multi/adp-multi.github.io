@@ -34,7 +34,7 @@ There's also a short motivational/introductional talk called
 that I gave at the "10. Herbstseminar der Bioinformatik" (2012) which summarizes why adp-multi is useful and in which direction future work might go.
 Note that the adp-multi syntax in the slides is outdated.
 
-In July 2013 I defended my thesis (giving a presentation and answering question). The (german) [slides are available]({{urls.media}}/verteidigung_2013.pdf) and contain more up-to-date information than the ones from 2012 above. For in-depth information, have a look at [my thesis](https://github.com/adp-multi/thesis/releases), it's in English.
+In July 2013 I defended my thesis (giving a presentation and answering questions). The (german) [slides are available]({{urls.media}}/verteidigung_2013.pdf) and contain more up-to-date information than the ones from 2012 above. For in-depth information, have a look at [my thesis](https://github.com/adp-multi/thesis/releases), it's in English.
 
 ## Questions? Comments? Bugs?
 
