@@ -12,6 +12,8 @@ adp-multi is an implementation of [Algebraic Dynamic Programming](http://bibiser
 It is a library based on the original [Haskell implementation](https://bitbucket.org/gsauthof/adpcombinators)
 and can be considered an unoptimized prototype.
 
+The formalism ([ADP for MCFL](/adp_for_mcfl)) and the library have been developed as part of my [master's thesis](https://github.com/adp-multi/thesis/releases).
+
 ## Sources, please!
 
 Here you go: [https://github.com/adp-multi/adp-multi](https://github.com/adp-multi/adp-multi)
