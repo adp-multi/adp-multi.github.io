@@ -6,7 +6,7 @@ speed: 50
 
 {{> tabulation_libs }}
 
-The solution for the subword pair $(i..j,k..l)$ is stored at $M[adr(i,j),adr(k,l)]$ where $M$ is a two-dimensional matrix of size $(|w|+1)\cdot(|w|+2) / 2$ in both dimensions, and $adr(i,j) = |w|\cdot i - (i\cdot(i-1)) \div 2 + j$. This partially eliminates the space loss of the [naive strategy](/tabulation_2dim_naive) -- while overlapping subwords still cause space loss (see the holes in the matrix).
+The solution for the subword pair $(i..j,k..l)$ is stored at $M[adr(i,j),adr(k,l)]$ where $M$ is a two-dimensional matrix of size $(|w|+1)\cdot(|w|+2) / 2$ in both dimensions, and $adr(i,j) = i + (j\cdot(j+1)) \div 2$. This partially eliminates the space loss of the [naive strategy](/tabulation_2dim_naive) -- while overlapping subwords still cause space loss (see the holes in the matrix).
 
 **Hint**: Zoom out with your mouse scroll wheel for bigger word lengths!
 
@@ -16,8 +16,7 @@ The solution for the subword pair $(i..j,k..l)$ is stored at $M[adr(i,j),adr(k,l
 
 <script>
 Tabulation.prototype.adr = function(i,j) {
-	//console.log(i + "," + j + " -> " + (this.len*i - Math.floor((i*(i-1)) / 2) + j));
-	return this.len*i - Math.floor((i*(i-1)) / 2) + j;
+	return i + Math.floor((j*(j+1)) / 2);
 }
 
 Tabulation.prototype.solve = function(x1,x2,x3,x4,c) {
