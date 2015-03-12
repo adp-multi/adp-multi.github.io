@@ -6,7 +6,7 @@ speed: 20
 
 {{> tabulation_libs }}
 
-The solution for the subword triple $(i..j,k..l,m..n)$ is stored at $M[adr(i,j),adr(k,l),adr(m,n)]$ where $M$ is a three-dimensional matrix of size $(|w|+1)\cdot(|w|+2) / 2$ in all dimensions, and $adr(i,j) = |w|\cdot i - (i\cdot(i-1)) \div 2 + j$. Similar to the [two-dimensional case](/tabulation_2dim_triangular) space loss is caused by overlapping subwords.
+The solution for the subword triple $(i..j,k..l,m..n)$ is stored at $M[adr(i,j),adr(k,l),adr(m,n)]$ where $M$ is a three-dimensional matrix of size $(|w|+1)\cdot(|w|+2) / 2$ in all dimensions, and $adr(i,j) = i + (j\cdot(j+1)) \div 2$. Similar to the [two-dimensional case](/tabulation_2dim_triangular) space loss is caused by overlapping subwords.
 
 **Hint**: Rotate and zoom with your left mouse button and scroll wheel!
 
@@ -17,8 +17,7 @@ The solution for the subword triple $(i..j,k..l,m..n)$ is stored at $M[adr(i,j),
 
 <script>
 Tabulation.prototype.adr = function(i,j) {
-	//console.log(i + "," + j + " -> " + (this.len*i - Math.floor((i*(i-1)) / 2) + j));
-	return this.len*i - Math.floor((i*(i-1)) / 2) + j;
+	return i + Math.floor((j*(j+1)) / 2);
 }
 
 Tabulation.prototype.solve = function(x1,x2,x3,x4,x5,x6,c) {
