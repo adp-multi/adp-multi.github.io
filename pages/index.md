@@ -14,6 +14,8 @@ and can be considered an unoptimized prototype.
 
 The formalism ([ADP for MCFL](/adp_for_mcfl)) and the library have been developed as part of my [master's thesis](https://github.com/adp-multi/thesis/releases).
 
+*NOTE*: This prototype will not be developed further and current development happens within the [gADP](http://www.bioinf.uni-leipzig.de/Software/gADP/) Haskell library which is highly optimized and offers various other advanced functionality.
+
 ## Sources, please!
 
 Here you go: [https://github.com/adp-multi/adp-multi](https://github.com/adp-multi/adp-multi)
