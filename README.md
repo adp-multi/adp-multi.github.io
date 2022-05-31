@@ -1,35 +1,18 @@
-A default blog scaffold for **ruhoh** compatible static blog parsers.
+# adp-multi.github.io
 
-**This version is for [ruhohSpec v1.0](http://ruhoh.com/universal-blog-api/) and is only compatible with ruhoh gem 1.0.x.x**
+## Build locally on Ubuntu
 
-See <http://ruhoh.com> for more information.
+Install tools:
 
-## Usage and Documentation
+```sh
+sudo apt install build-essential ruby ruby-dev
+sudo gem install bundler
+bundle config set --local path 'vendor/bundle'
+bundle install
+```
 
-See <http://ruhoh.com/usage> for full usage and documentation.
+Build the site and start a local server:
 
-Currently the only parser is available in ruby as a ruby gem:
-
-````bash
-$ gem install ruhoh --version '1.0.0.alpha'
-$ ruhoh help
-````
-
-Once you have the gem you can run your blog locally:
-
-Assume USERNAME is your GitHub username.
-
-````bash
-$ git clone git://github.com/ruhoh/blog.git USERNAME.ruhoh.com
-$ cd USERNAME.ruhoh.com
-$ rackup -p 9292
-````
-
-Using your GitHub username is useful for automatically publishing to ruhoh.com
-
-For all publishing options including self-hosting see: <http://ruhoh.com/usage/publish>
-
-## License
-
-Released under the [MIT License](http://www.opensource.org/licenses/MIT)
-
+```sh
+bundle exec jekyll serve --livereload
+```
