@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Quick start | adp-multi</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Quick start" />
+<meta name="author" content="Maik Riechert" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="adp-multi is an adaptation of the Algebraic Dynamic Programming method for multiple context-free languages." />
+<meta property="og:description" content="adp-multi is an adaptation of the Algebraic Dynamic Programming method for multiple context-free languages." />
+<link rel="canonical" href="https://adp-multi.github.io/quick_start/" />
+<meta property="og:url" content="https://adp-multi.github.io/quick_start/" />
+<meta property="og:site_name" content="adp-multi" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Quick start" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Maik Riechert"},"description":"adp-multi is an adaptation of the Algebraic Dynamic Programming method for multiple context-free languages.","headline":"Quick start","url":"https://adp-multi.github.io/quick_start/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css">
+    <script>
+    window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+</head><body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">adp-multi</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/quick_start/">Quick start</a><a class="page-link" href="/adp_for_mcfl/">ADP for MCFL</a><a class="page-link" href="/syntax/">Syntax</a><a class="page-link" href="/tabulation/">Tabulation</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Quick start</h1>
+  </header>
+
+  <div class="post-content">
+    <p>This quick start guide will introduce you to adp-multi (and ADP if you don’t know it yet)
+and points out differences to the original Haskell-ADP implementation.</p>
+
+<h2 id="notes-on-examples">Notes on examples</h2>
+
+<p>The examples referenced below are related to RNA secondary structure prediction
+because this is where the ADP method is mainly used at the moment.</p>
+
+<h2 id="people-coming-from-hand-written-dynamic-programming-code">People coming from hand-written dynamic programming code</h2>
+
+<p>Welcome stranger! It’s always nice to have new company around. Before you continue
+reading the next sections, please have a look at the ADP
+<a href="http://bibiserv.techfak.uni-bielefeld.de/cgi-bin/dpcourse">online course</a> or
+the <a href="http://dx.doi.org/10.1016/j.scico.2003.12.005">tutorial-style paper</a> from its inventors.</p>
+
+<p>When you’re confident with the idea of ADP <em>and</em> if you’re a bioinformatics guy, then you
+should ask yourself how pseudoknots or the RNA-RNA interaction problem can be modelled
+by context-free grammars. They can’t! That’s what multiple context-free grammars are for, and
+adp-multi extends ADP by supporting the class of languages that MCFG generate.
+Have a look at the slides of a talk I gave at the “10. Herbstseminar der Bioinformatik” (2012) called 
+“<a href="/assets/talk_herbstseminar2012.pdf">Predicting Pseudoknots Without Hacking in C</a>”.
+Note that the adp-multi syntax in the slides is outdated.</p>
+
+<h2 id="people-coming-from-haskell-adp-adpfusion-adpc-gap">People coming from Haskell-ADP, ADPfusion, ADPC, GAP</h2>
+
+<p>If you are already familiar with the 
+<a href="https://bitbucket.org/gsauthof/adpcombinators">Haskell implementation</a> of regular ADP, then
+have a look at
+<a href="https://github.com/adp-multi/adp-multi/blob/master/tests/ADP/Tests/NestedExample.hs">tests/ADP/Tests/NestedExample.hs</a>
+where adp-multi is used with only one-dimensional parsers/nonterminals.
+This is equal to the working of regular ADP and should be familiar
+to you. The additional syntax overhead (<code class="language-plaintext highlighter-rouge">&gt;&gt;&gt;</code> etc.) will be useful for higher dimensions.</p>
+
+<h2 id="integrated-yield-size-analysis">Integrated yield size analysis</h2>
+
+<p>Contrary to Haskell-ADP, adp-multi doesn’t use different combinators for specifying the
+yield sizes. Instead, a restricted yield size analysis is performed before running
+the actual dynamic programming algorithm. Restricted, because it can’t detect cycles
+and would loop indefinitely if not told to stop. The special combinators <code class="language-plaintext highlighter-rouge">yieldSize1</code> and <code class="language-plaintext highlighter-rouge">yieldSize2</code> are used
+for that case and have the effect that the minimum and maximum yield size of a nonterminal is
+specified manually so that the automated yield size analysis is skipped and doesn’t go into a loop.</p>
+
+<h2 id="2-dimensional-nonterminals">2-dimensional nonterminals</h2>
+
+<p>If you haven’t done so, now is a good time to <a href="/mcfl">learn what MCFGs are</a>. When you’re
+done, you can continue here.</p>
+
+<p>For everything higher than one dimension you have to use a custom rewriting function for each grammar rule (instead of <code class="language-plaintext highlighter-rouge">id</code>).
+As explained in the <a href="/mcfl">MCFG page</a> there are two representations of multiple context-free grammars:
+the original functional-style representation by 
+<a href="http://www.sciencedirect.com/science/article/pii/030439759190374B">Seki et al. (1991)</a> 
+and the newer inlined-style one by <a href="https://kluedo.ub.uni-kl.de/frontdoor/index/index/docId/2285">Wild (2010)</a>.
+As the functional-style representation fits better for implementation via parser combinators, this style
+was chosen for adp-multi.</p>
+
+<p>Have a look at
+<a href="https://github.com/adp-multi/adp-multi/blob/master/tests/ADP/Tests/RGExample.hs">tests/ADP/Tests/RGExample.hs</a>
+and scroll to the bottom where the grammar is. You have to use <code class="language-plaintext highlighter-rouge">&gt;&gt;&gt;</code> to combine a rule with its rewriting function.
+At the moment there is no type-safety for rewriting functions, so be careful with the list
+argument and return value (it will fail at run-time though). If you want more information on that, 
+have a look at the <a href="/syntax">syntax page</a>.</p>
+
+<p>As it is always good to learn by example, please have a look at the 
+<a href="https://github.com/adp-multi/adp-multi/tree/master/tests/ADP/Tests">Tests</a> folder.
+There you will find:</p>
+
+<p>Copy language:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">CopyExample.hs</code> a grammar for the copy language L = { ww | w in {a,b}^* }</li>
+  <li><code class="language-plaintext highlighter-rouge">CopyTwoTrackExample.hs</code> a two-track grammar for the tupled copy language L = { (w,w) | w in {a,b}^* }</li>
+</ul>
+
+<p>RNA secondary structure prediction:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">NestedExample.hs</code> a grammar for nested RNA secondary structures (1-dim nonterminals)</li>
+  <li><code class="language-plaintext highlighter-rouge">RGExample.hs</code> a grammar for RNA sec. structures with <a href="http://www.biomedcentral.com/1471-2105/5/104/">canonical simple recursive pseudoknots</a> (only the first canonization rule is used)</li>
+  <li><code class="language-plaintext highlighter-rouge">RGExampleDim2.hs</code> same as <code class="language-plaintext highlighter-rouge">RGExample.hs</code> but with 1-dim nonterminals encoded as 2-dim nonterminals (for testing purposes)</li>
+  <li><code class="language-plaintext highlighter-rouge">RGExampleStar.hs</code> same as <code class="language-plaintext highlighter-rouge">RGExample.hs</code> but with $(\mathcal{A}^*)^i$ used in signature instead of $\mathcal{A}$ and $(\mathcal{A},\mathcal{A})$</li>
+  <li><code class="language-plaintext highlighter-rouge">OneStructureExample.hs</code> a grammar for RNA <a href="http://bioinformatics.oxfordjournals.org/content/27/8/1076.full">1-structures</a> (4 types of pseudoknots)</li>
+  <li><code class="language-plaintext highlighter-rouge">ZeroStructureTwoBackbonesExample.hs</code> a grammar for RNA <a href="http://arxiv.org/pdf/1112.6194v1.pdf">0-structures over two backbones</a> (RNA-RNA interaction problem)</li>
+  <li><code class="language-plaintext highlighter-rouge">Nussinov.lhs</code> benchmark grammar using original Haskell-ADP, equal to <code class="language-plaintext highlighter-rouge">NestedExample.hs</code></li>
+</ul>
+
+<p>Sequence/tree alignment:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">AlignmentExample.hs</code> <a href="http://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm">Needleman-Wunsch global alignment</a> of two sequences</li>
+  <li><code class="language-plaintext highlighter-rouge">TreeAlignExample.hs</code> <a href="http://www.techfak.uni-bielefeld.de/ags/pi/lehre/PatTreesWS11/1-s2.0-0304397595800299-main.pdf">Jiang-Wang-Zhang alignment</a> of two trees encoded as sequences (terms)</li>
+</ul>
+
+<p>Auxiliary files:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Suite.hs</code> a small test suite</li>
+  <li><code class="language-plaintext highlighter-rouge">Main.hs</code> the entry point of the test executable, an easy way to try out things</li>
+</ul>
+
+<h2 id="higher-dimensions">Higher dimensions</h2>
+
+<p>Although quite easily possible, higher dimensions haven’t been implemented yet as
+a more generic approach instead of implementing code for every dimension (which of course isn’t possible)
+hasn’t been found yet. At least for the domain of RNA secondary structure
+prediction, having more than two dimensions isn’t needed for the current state of research.
+See also “<a href="http://wwwagak.cs.uni-kl.de/Veroffentlichungen/func-startdown/8.html">Algebraic and Combinatorial Properties of Common RNA Pseudoknot Classes with Applications</a>”
+by Markus E. Nebel and Frank Weinberg (2012).</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">adp-multi</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Maik Riechert</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/adp-multi"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">adp-multi</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>adp-multi is an adaptation of the Algebraic Dynamic Programming  method for multiple context-free languages.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

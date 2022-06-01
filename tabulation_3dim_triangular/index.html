@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>(partly) Space-efficient tabulation for 3-dim nonterminals | adp-multi</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="(partly) Space-efficient tabulation for 3-dim nonterminals" />
+<meta name="author" content="Maik Riechert" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="adp-multi is an adaptation of the Algebraic Dynamic Programming method for multiple context-free languages." />
+<meta property="og:description" content="adp-multi is an adaptation of the Algebraic Dynamic Programming method for multiple context-free languages." />
+<link rel="canonical" href="https://adp-multi.github.io/tabulation_3dim_triangular/" />
+<meta property="og:url" content="https://adp-multi.github.io/tabulation_3dim_triangular/" />
+<meta property="og:site_name" content="adp-multi" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="(partly) Space-efficient tabulation for 3-dim nonterminals" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Maik Riechert"},"description":"adp-multi is an adaptation of the Algebraic Dynamic Programming method for multiple context-free languages.","headline":"(partly) Space-efficient tabulation for 3-dim nonterminals","url":"https://adp-multi.github.io/tabulation_3dim_triangular/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css">
+    <script>
+    window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+</head><body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">adp-multi</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/quick_start/">Quick start</a><a class="page-link" href="/adp_for_mcfl/">ADP for MCFL</a><a class="page-link" href="/syntax/">Syntax</a><a class="page-link" href="/tabulation/">Tabulation</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">(partly) Space-efficient tabulation for 3-dim nonterminals</h1>
+  </header>
+
+  <div class="post-content">
+    <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+
+<script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/three.js/r58/three.min.js"></script>
+
+<script type="text/javascript" src="/assets/three.js/TrackballControls.js"></script>
+
+<script type="text/javascript" src="/assets/three.js/Tabulation.js"></script>
+
+<script src="/assets/three.js/helvetiker_regular.typeface.js"></script>
+
+<p>The solution for the subword triple $(i..j,k..l,m..n)$ is stored at $M[adr(i,j),adr(k,l),adr(m,n)]$ where $M$ is a three-dimensional matrix of size $(|w|+1)\cdot(|w|+2) / 2$ in all dimensions, and $adr(i,j) = i + (j\cdot(j+1)) \div 2$. Similar to the <a href="/tabulation_2dim_triangular">two-dimensional case</a> space loss is caused by overlapping subwords.</p>
+
+<p><strong>Hint</strong>: Rotate and zoom with your left mouse button and scroll wheel!</p>
+
+<div style="clear:both; float:left; margin-right:20px; width: 150px">
+	Delay:
+	<span id="delay" style="font-weight: bold;"></span> (try 0!)
+</div>
+<div id="slider-delay" style="float: left; width:100px; margin-right:20px; margin-top:6px"></div>
+<p>(note: doesn’t affect a running animation)</p>
+
+<script>
+$(function() {
+	$( "#slider-delay" ).slider({
+		value: 20,
+		min: 0,
+		max: 100,
+		step: 10,
+		slide: function( event, ui ) {
+			$( "#delay" ).text( ui.value );
+			window.tab.speed = ui.value;
+		}
+	});
+	$( "#delay" ).text( $( "#slider-delay" ).slider( "value" ) );
+});
+</script>
+
+<div style="clear:both; float:left; margin-right:20px; width: 150px">
+	Word length:
+	<span id="length" style="font-weight: bold;"></span>
+</div>
+<div id="slider" style="float: left; width:100px; margin-top:6px"></div>
+
+<script>
+$(function() {
+	$( "#slider" ).slider({
+		value:4,
+		min: 0,
+		max: 10,
+		slide: function( event, ui ) {
+			$( "#length" ).text( ui.value );
+			window.tab.freshScene();
+			window.tab.len = ui.value;
+			window.tab.fill();
+		}
+	});
+	$( "#length" ).text( $( "#slider" ).slider( "value" ) );
+});
+</script>
+
+<script>
+Tabulation.prototype.adr = function(i,j) {
+	return i + Math.floor((j*(j+1)) / 2);
+}
+
+Tabulation.prototype.solve = function(x1,x2,x3,x4,x5,x6,c) {
+	this.addCubeDelayed(this.adr(x1,x2), this.adr(x3,x4), this.adr(x5,x6), c);
+}
+
+Tabulation.prototype.fill = function() {
+	var len = this.len;
+	
+	var l = (len+1)*(len+2)/2;
+	this.addBoundingBox(l,l,l);
+	this.addText(0, 0, -2, 0);
+	this.addText(l-1, l-1, -2, 0);
+	this.addText(0, -1.7, 0, 0);
+	this.addText(l-1, -1.7, l-1, 0);
+	this.addText(0, -1.7, -2, 0);
+	this.addText(l-1, -1.7, -2, l-1);
+	
+	var c = 0;
+	for (var l=0; l<=len; l++) {
+		for (var x1=0; x1<=len-l; x1++) {
+			var x2 = x1 + l;
+			for (var l2=0; l2<=l; l2++) {
+				for (var x3=0; x3 <= (l==l2 ? x1 : len-l2); x3++) {
+					var x4 = x3 + l2;
+					if (x3 >= x2 || x4 <= x1) {
+						for (var l3=0; l3 <= l2; l3++) {
+							for (var x5=0; x5 <= (l2==l3 ? x3 : len-l3); x5++) {
+								var x6 = x5 + l3;
+								if ((x3 >= x2 && (x5 >= x4 || x6 <= x1 || (x2 <= x5 && x6 <= x3))) ||
+									(x4 <= x1 && (x5 >= x2 || x6 <= x3 || (x4 <= x5 && x6 <= x1))) ) {
+									this.solve(x1, x2, x3, x4, x5, x6, c);
+									c++;
+									if (!(x3 == x5 && x4 == x6)) {
+										this.solve(x1, x2, x5, x6, x3, x4, c);
+										c++;
+									}
+									if (!(x1 == x3 && x2 == x4)) {
+										this.solve(x3, x4, x1, x2, x5, x6, c);
+										c++;
+									}
+									// this condition probably doesn't catch all duplicates
+									if (!(x1 == x3 && x2 == x4 && x3 == x5 && x4 == x6 && x1 == x5 && x2 == x6)) {
+										this.solve(x3, x4, x5, x6, x1, x2, c);
+										c++;
+									}
+									// this condition probably doesn't catch all duplicates
+									if (!(x1 == x3 && x2 == x4 && x3 == x5 && x4 == x6 && x1 == x5 && x2 == x6)) {
+										this.solve(x5, x6, x1, x2, x3, x4, c);
+										c++;
+									}
+									if (!(x1 == x5 && x2 == x6)) {
+										this.solve(x5, x6, x3, x4, x1, x2, c);
+										c++;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	setTimeout(function(){console.log("subproblems: " + c)}, 100);
+}
+
+$(function() {
+	var tab = new Tabulation($(".post-content")[0], $( "#slider" ).slider("value"));
+	tab.speed = 20;
+	tab.fill();
+	window.tab = tab;
+});
+</script>
+
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">adp-multi</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Maik Riechert</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/adp-multi"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">adp-multi</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>adp-multi is an adaptation of the Algebraic Dynamic Programming  method for multiple context-free languages.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

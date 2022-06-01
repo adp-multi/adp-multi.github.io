@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Syntax | adp-multi</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Syntax" />
+<meta name="author" content="Maik Riechert" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="adp-multi is an adaptation of the Algebraic Dynamic Programming method for multiple context-free languages." />
+<meta property="og:description" content="adp-multi is an adaptation of the Algebraic Dynamic Programming method for multiple context-free languages." />
+<link rel="canonical" href="https://adp-multi.github.io/syntax/" />
+<meta property="og:url" content="https://adp-multi.github.io/syntax/" />
+<meta property="og:site_name" content="adp-multi" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Syntax" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Maik Riechert"},"description":"adp-multi is an adaptation of the Algebraic Dynamic Programming method for multiple context-free languages.","headline":"Syntax","url":"https://adp-multi.github.io/syntax/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css">
+    <script>
+    window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+</head><body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">adp-multi</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/quick_start/">Quick start</a><a class="page-link" href="/adp_for_mcfl/">ADP for MCFL</a><a class="page-link" href="/syntax/">Syntax</a><a class="page-link" href="/tabulation/">Tabulation</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Syntax</h1>
+  </header>
+
+  <div class="post-content">
+    <p>As explained in the <a href="/adp_for_mcfl">ADP for MCFL</a> page, the main change compared to ADP for CFL is the addition of rewriting functions.</p>
+
+<h2 id="this-is-how-a-nice-syntax-could-look-like">This is how a nice syntax could look like</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>S = nil  &lt;&lt; empty
+  | left &lt;&lt; B S
+  | pair &lt;&lt; P S S       &gt;&gt; \ (p1,p2) s1 s2 -&gt; p1 s1 p2 s2
+  | knot &lt;&lt; K K S S S S &gt;&gt; \ (k11,k12) (k21,k22) s1 s2 s3 s4 -&gt; k11 s1 k21 s2 k12 s3 k22 s4
+  ... h
+  
+B = base &lt;&lt; 'a' | base &lt;&lt; 'u' | base &lt;&lt; 'c' | base &lt;&lt; 'g'
+
+P = bpair &lt;&lt; ('a','u')
+  | bpair &lt;&lt; ('u','a')
+  | [...]
+  
+K = knot1 &lt;&lt; P K &gt;&gt; \ (p1,p2) (k1,k2) -&gt; (k1 p1, p2 k2)
+  | knot2 &lt;&lt; P
+</code></pre></div></div>
+
+<p>Of course, rewriting functions should also be assignable to separate identifiers
+to allow reuse:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rewriteKnot1 (p1,p2) (k1,k2) = (k1 p1, p2 k2)
+K = knot1 &lt;&lt; P K &gt;&gt; rewriteKnot1
+  | knot2 &lt;&lt; P
+</code></pre></div></div>
+
+<h2 id="this-is-how-it-actually-looks-at-the-moment">This is how it actually looks (at the moment)</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rewritePair, rewriteKnot :: Dim1 
+
+s = tabulated1 $
+	yieldSize1 (0,Nothing) $
+	nil  &lt;&lt;&lt; empty         &gt;&gt;&gt; id |||
+	left &lt;&lt;&lt; b ~~~ s       &gt;&gt;&gt; id |||
+	pair &lt;&lt;&lt; p ~~~ s ~~~ s &gt;&gt;&gt; (\ [p1,p2,s1,s2] -&gt; [p1,s1,p2,s2]) |||
+	knot &lt;&lt;&lt; k ~~~ k ~~~ s ~~~ s ~~~ s ~~~ s &gt;&gt;&gt; (\ [k11,k12,k21,k22,s1,s2,s3,s4] -&gt; [k11,s1,k21,s2,k12,s3,k22,s4])
+	... h
+	
+b = tabulated1 $
+    base &lt;&lt;&lt; 'a' &gt;&gt;&gt; id |||
+    base &lt;&lt;&lt; 'u' &gt;&gt;&gt; id |||
+    base &lt;&lt;&lt; 'c' &gt;&gt;&gt; id |||
+    base &lt;&lt;&lt; 'g' &gt;&gt;&gt; id
+	
+p = tabulated2 $
+	bpair &lt;&lt;&lt; ('a','u') &gt;&gt;&gt; id2 |||
+	bpair &lt;&lt;&lt; ('u','a') &gt;&gt;&gt; id2 |||
+	[...]
+	
+rewriteKnot1 :: Dim2
+rewriteKnot1 [p1,p2,k1,k2] = ([k1,p1],[p2,k2])
+
+k = tabulated2 $
+	yieldSize2 (1,Nothing) (1,Nothing) $
+	knot1 &lt;&lt;&lt; p ~~~ k &gt;&gt;&gt; rewriteKnot1 |||
+	knot2 &lt;&lt;&lt; p       &gt;&gt;&gt; id2
+</code></pre></div></div>
+
+<h2 id="differences-explained">Differences explained</h2>
+
+<h3 id="s-vs-s"><code class="language-plaintext highlighter-rouge">S</code> vs <code class="language-plaintext highlighter-rouge">s</code></h3>
+
+<p>As the grammars use parser combinators, their non-terminals are functions.
+In Haskell, variable identifiers (like a function identifier) must start
+with a lower-case letter while constructor identifiers (like a data type)
+must start with an upper-case letter. 
+(<a href="http://www.haskell.org/onlinereport/lexemes.html">Haskell 98 Lexical Structure</a>)</p>
+
+<h3 id="tabulated1-and-tabulated2"><code class="language-plaintext highlighter-rouge">tabulated1</code> and <code class="language-plaintext highlighter-rouge">tabulated2</code></h3>
+
+<p>ADP compilers like <a href="http://gapc.eu">GAP-C</a> can do an automatic table design
+analysis and then decide which non-terminals should be tabulated. As adp-multi
+doesn’t do any static analysis (except limited yield size analysis, see below)
+the programmer explicitly has to state which tables should be tabulated. The
+numbers in <code class="language-plaintext highlighter-rouge">tabulated1</code> and <code class="language-plaintext highlighter-rouge">tabulated2</code> specify the table dimensions which means
+that <code class="language-plaintext highlighter-rouge">tabulated1</code> will use a two dimensional table and <code class="language-plaintext highlighter-rouge">tabulated2</code> will use
+a four dimensional table.</p>
+
+<p><em>Note</em>: At the moment, choosing the wrong version of <code class="language-plaintext highlighter-rouge">tabulated*</code> doesn’t yield to
+        compilation but runtime errors. This typing problem is explained further
+		below and should be solved in future versions.</p>
+
+<h3 id="-vs--and--vs-"><code class="language-plaintext highlighter-rouge">|</code> vs <code class="language-plaintext highlighter-rouge">|||</code> and <code class="language-plaintext highlighter-rouge">&lt;&lt;</code> vs <code class="language-plaintext highlighter-rouge">&lt;&lt;&lt;</code></h3>
+
+<p>In Haskell, <code class="language-plaintext highlighter-rouge">|</code> is reserved as a keyword, and <code class="language-plaintext highlighter-rouge">||</code> is defined as a function in Prelude
+which could theoretically be used (by hiding and redefining it, causing more trouble).
+Although <code class="language-plaintext highlighter-rouge">|||</code> is also defined in <code class="language-plaintext highlighter-rouge">Control.Arrow</code>, the conflicts are limited to a minimum
+which is why it is used.</p>
+
+<p>Using <code class="language-plaintext highlighter-rouge">&lt;&lt;</code> would be possible but for reasons of symmetry to <code class="language-plaintext highlighter-rouge">|||</code> and <code class="language-plaintext highlighter-rouge">&gt;&gt;&gt;</code>, it
+is defined as <code class="language-plaintext highlighter-rouge">&lt;&lt;&lt;</code>.</p>
+
+<h3 id="yieldsize1-and-yieldsize2-or-how-does-yield-size-analysis-work"><code class="language-plaintext highlighter-rouge">yieldSize1</code> and <code class="language-plaintext highlighter-rouge">yieldSize2</code> (or: How does yield size analysis work?)</h3>
+
+<p>The original Haskell-ADP implementation has several combinators to connect
+two non-terminals (<code class="language-plaintext highlighter-rouge">~~~</code>,<code class="language-plaintext highlighter-rouge">-~~</code>,<code class="language-plaintext highlighter-rouge">~~-</code>,<code class="language-plaintext highlighter-rouge">+~~</code>,<code class="language-plaintext highlighter-rouge">~~+</code>,<code class="language-plaintext highlighter-rouge">+~+</code>,…). Those different
+variants are necessary to tell the top-down parsing mechanism what the minimum
+yield sizes are – otherwise the subword ranges would never get smaller in a recursion,
+leading to endless recursion.</p>
+
+<p>In GAP-C this isn’t necessary anymore because the compiler does a yield size analysis
+and then knows the minimum and possibly maximum yield sizes of each nonterminal.</p>
+
+<p>In adp-multi, a restricted yield size analysis was built in. Restricted means that
+it doesn’t handle cycles because this would require a full blown abstract syntax tree
+analysis of the grammar (as in GAP-C). Therefore the grammar writer has to tell the
+parser where the cycles are and then explicitly cut them off by using <code class="language-plaintext highlighter-rouge">yieldSize1</code> and
+<code class="language-plaintext highlighter-rouge">yieldSize2</code>, respectively. Cutting off means that the minimum and maximum yield size
+of a nonterminal is specified manually, therefore skipping the yield size analysis.</p>
+
+<h3 id="-vs-"><code class="language-plaintext highlighter-rouge">&gt;&gt;</code> vs <code class="language-plaintext highlighter-rouge">&gt;&gt;&gt;</code></h3>
+
+<p>For symmetry reasons, <code class="language-plaintext highlighter-rouge">&gt;&gt;&gt;</code> was chosen for rewriting function.</p>
+
+<h3 id="-optional-vs-required"><code class="language-plaintext highlighter-rouge">&gt;&gt;</code> optional vs required</h3>
+
+<p>In original Haskell-ADP, the combinators for connecting two nonterminals were themselves
+responsible for creating the right subword indices. In adp-multi, this isn’t possible
+anymore due to the rewriting functions. Therefore, the operator <code class="language-plaintext highlighter-rouge">&gt;&gt;&gt;</code> is responsible
+for creating all possible subword indices for a complete rule. In cases where no
+rewriting is required, the <code class="language-plaintext highlighter-rouge">&gt;&gt;&gt;</code> must still be applied with the identity function
+so that the subword indices are generated. It is not yet clear if this could be
+done implicitly by using Haskell’s type classes.</p>
+
+<h3 id="-p1p2-s1-s2-vs--p1p2s1s2"><code class="language-plaintext highlighter-rouge">\ (p1,p2) s1 s2</code> vs <code class="language-plaintext highlighter-rouge">\ [p1,p2,s1,s2]</code></h3>
+
+<p>Having a rule like <code class="language-plaintext highlighter-rouge">val &lt;&lt;&lt; p ~~~ p &gt;&gt;&gt; rewrite</code> and making it typesafe means
+that the two nonterminal parsers have to be applied one after another both
+to <code class="language-plaintext highlighter-rouge">val</code> and <code class="language-plaintext highlighter-rouge">rewrite</code>. This seems rather complicated, considering that
+each nonterminal parser can have a different dimension. I’m sure that this is
+solvable with some advanced Haskell extensions like Type Families, GADTs, etc.</p>
+
+<p>For now, to produce a working prototype, the type safety was loosened a bit and
+lists are used in all such cases. This means that related errors
+will only be detected at runtime.</p>
+
+<p>If someone has hints on that, I would be very thankful!</p>
+
+<h2 id="why-cant-terminal-symbols-be-included-in-rewriting-functions">Why can’t terminal symbols be included in rewriting functions?</h2>
+
+<p>The formalism of MCFGs allows to write rewriting functions like the following:</p>
+
+<div>$$
+K \rightarrow g[K] \mid (a, b)\\
+g[(x_1,x_2)] = (x_1 a, b x_2)
+$$</div>
+
+<p>Another (less usual) way is:</p>
+
+<div>$$
+K \rightarrow g[K,a,b] \mid (a, b)\\
+g[(x_1,x_2),x_3,x_4] = (x_1 x_3, x_4 x_2)
+$$</div>
+
+<p>or:</p>
+
+<div>$$
+K \rightarrow g[K,(a,b)] \mid (a, b)\\
+g[(x_1,x_2),(x_3,x_4)] = (x_1 x_3, x_4 x_2)
+$$</div>
+
+<p>Only the last two ways can be used in adp-multi:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>k = val &lt;&lt;&lt; 'a' ~~~ 'b' ~~~ k &gt;&gt;&gt; g
+g [x3,x4,x1,x2] = ([x1,x3],[x4,x2])
+</code></pre></div></div>
+
+<p>and</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>k = val &lt;&lt;&lt; ('a','b') ~~~ k &gt;&gt;&gt; g
+g [x3,x4,x1,x2] = ([x1,x3],[x4,x2])
+</code></pre></div></div>
+
+<p>This little restriction made the implementation a lot easier and shouldn’t cause any
+real inconvenience. It might even help in more quickly recognizing all parts of
+a rule without looking at the rewriting functions.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">adp-multi</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Maik Riechert</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/adp-multi"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">adp-multi</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>adp-multi is an adaptation of the Algebraic Dynamic Programming  method for multiple context-free languages.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
